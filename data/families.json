@@ -1,7 +1,7 @@
 {
   "updated": "2026-11-10",
   "note": "Ties are listed only where a published source states them. Researched in November 2026 from MindaNews, PCIJ and official LGU pages; each tie links to its sources. Coverage is uneven: many towns have no documented ties yet, which does not mean there are none.",
-  "_schema": "members[].key is an officials.json person id, or x-… for a relative with no Bukidnon office in 2001–2025 (person: null). ties[]: aIs is A's role relative to B (\"father\"), bIs is B's role relative to A (\"son\"). Every tie needs at least one source with a url.",
+  "_schema": "members[].key is an officials.json person id, or x-… for a relative with no Bukidnon office in 2001–2025 (person: null). ties[]: aIs is A's role relative to B (\"father\"), bIs is B's role relative to A (\"son\"). Every tie needs at least one source with a url. members[].photo is optional: { url (https), credit }; use only official portraits whose license is known (e.g. House of Representatives, public domain).",
   "families": [
     {
       "id": "zubiri",
@@ -13,7 +13,7 @@
         { "key": "zubiri-jose-maria-iii", "person": "zubiri-jose-maria-iii" },
         { "key": "zubiri-manuel", "person": "zubiri-manuel" },
         { "key": "zubiri-ignacio", "person": "zubiri-ignacio" },
-        { "key": "zubiri-audrey", "person": "zubiri-audrey" }
+        { "key": "zubiri-audrey", "person": "zubiri-audrey", "photo": { "url": "https://juris-assets.bettergov.ph/bataswatch/authors/20/house/person-1c3d13be001b680748bbbb09/portrait-de7f4a407d1a173a.jpg", "credit": "House of Representatives of the Philippines · Public domain" } }
       ],
       "ties": [
         {
@@ -58,7 +58,7 @@
         { "key": "acosta-socorro", "person": "acosta-socorro", "offices": ["Representative, 1st district of Bukidnon (before 2001)"] },
         { "key": "acosta-nereus", "person": "acosta-nereus" },
         { "key": "acosta-alba-malou", "person": "acosta-alba-malou" },
-        { "key": "alba-jose-manuel", "person": "alba-jose-manuel" }
+        { "key": "alba-jose-manuel", "person": "alba-jose-manuel", "photo": { "url": "https://juris-assets.bettergov.ph/bataswatch/authors/20/house/person-fc24dae7567e872360c54245/portrait-96c00c3c90ce6330.jpg", "credit": "House of Representatives of the Philippines · Public domain" } }
       ],
       "ties": [
         {
@@ -135,7 +135,7 @@
       "summary": "Rogelio Neil \"Oneil\" Roque held the 4th district House seat from 2013 and became governor in 2022. His wife Laarni Lavin-Roque, a Valencia City councilor, took over the 4th district seat.",
       "members": [
         { "key": "roque-rogelio-neil", "person": "roque-rogelio-neil" },
-        { "key": "roque-laarni", "person": "roque-laarni" }
+        { "key": "roque-laarni", "person": "roque-laarni", "photo": { "url": "https://juris-assets.bettergov.ph/bataswatch/authors/20/house/person-9f09aef58058a4704e67e761/portrait-59fd25fb471b23d7.jpg", "credit": "House of Representatives of the Philippines · Public domain" } }
       ],
       "ties": [
         {
@@ -153,7 +153,7 @@
       "summary": "Florencio \"Docboy\" Flores Jr. was Malaybalay mayor and 2nd district representative, and died in office as mayor in 2022. His son Jonathan Keith holds the 2nd district seat and his son Brian sits on the city council.",
       "members": [
         { "key": "flores-florencio-jr", "person": "flores-florencio-jr" },
-        { "key": "flores-jonathan-keith", "person": "flores-jonathan-keith" },
+        { "key": "flores-jonathan-keith", "person": "flores-jonathan-keith", "photo": { "url": "https://juris-assets.bettergov.ph/bataswatch/authors/20/house/person-a7eacd269b201a2e6714b4e6/portrait-8b97992c1b359f32.jpg", "credit": "House of Representatives of the Philippines · Public domain" } },
         { "key": "flores-brian", "person": "flores-brian" }
       ],
       "ties": [

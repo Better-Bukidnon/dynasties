@@ -1,0 +1,27 @@
+name: Correction
+description: A wrong name, office, place, year or tie on the site.
+title: "Correction: "
+labels: ["correction"]
+body:
+  - type: input
+    id: page
+    attributes:
+      label: Page
+      description: Link to the page with the problem
+      placeholder: https://dynasties.betterbukidnon.org/#/person/…
+    validations:
+      required: true
+  - type: textarea
+    id: wrong
+    attributes:
+      label: What is wrong, and what is right?
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source link
+      description: A published source for the correct information
+      placeholder: https://
+    validations:
+      required: true

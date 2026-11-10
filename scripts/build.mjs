@@ -11,7 +11,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = resolve(root, 'dist');
-const PUBLIC = ['index.html', 'assets', 'data/officials.json', 'data/families.json'];
+const PUBLIC = ['index.html', 'assets', 'data/officials.json', 'data/families.json', 'data/barangays.json'];
 
 execFileSync(process.execPath, [resolve(root, 'scripts/check-families.mjs')], { stdio: 'inherit' });
 
