@@ -23,6 +23,7 @@ for (const f of F.families) {
     if (m.person && !people.has(m.person)) problems.push(`${f.id}: member ${m.key} points to unknown person "${m.person}"`);
     if (!m.person && !m.name) problems.push(`${f.id}: member ${m.key} has no person and no name`);
     if (!m.person && !m.key.startsWith('x-')) problems.push(`${f.id}: member ${m.key} has no person; use an x- key`);
+    if (m.photo && (!/^https:\/\//.test(m.photo.url ?? '') || !m.photo.credit)) problems.push(`${f.id}: member ${m.key} photo needs an https url and a credit`);
   }
   for (const t of f.ties) {
     const where = `${f.id}: ${t.a} — ${t.b}`;

@@ -7,6 +7,7 @@ A static site listing every elected official in Bukidnon since 2001 and the docu
 - **Never record a family tie without a published source that states it.** Shared surnames, shared middle names, Sr./Jr. suffixes and succession in office are leads, not evidence. Pulitiklan and uncited Wikipedia sentences are leads only. When sources conflict, record `relative` with a `note` and cite both.
 - Keep the wording neutral. Being related is not wrongdoing; don't add language that implies otherwise.
 - Never hand-edit `data/officials.json`. Change `data/corrections.json` (every entry needs a `reason`) and run `npm run data`. The build fails loudly when a correction no longer matches a source row. Once OpenHalalan fixes a problem (issue #5), remove the matching correction.
+- Never hand-edit `data/barangays.json` either; run `npm run data:brgy` (`:refresh` re-fetches from DILG). It is a snapshot of who holds office now, never evidence of a family tie, and it must never carry the emails or phone numbers DILG lists.
 - `data/families.json` is curated by hand. Run `npm run check` after editing it.
 - Keep the attribution visible: OpenHalalan (ODbL) in the masthead, the footer and About, and the disclaimer at the top of every view.
 - Keep the site's own identity: the infra/budget type roles and layout, with a plum accent. Prefix classes with `dy-`. Every visible string needs a `dy-*` key in `assets/js/dynasties-i18n.js` (en, plus fil/ceb drafts until a native speaker reviews them).

@@ -1,0 +1,48 @@
+name: Family tie
+description: Report a family tie between Bukidnon officials, with a published source.
+title: "Tie: "
+labels: ["family-tie"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        We list a tie only when a **published source states it**: a news report, an official LGU, Congress or Senate page, or a court record. A shared surname, a Jr./Sr. suffix, or one person following another in office is not enough. Please keep the wording neutral.
+  - type: input
+    id: person-a
+    attributes:
+      label: First person
+      description: Name, or their page link on the site (…#/person/<id>)
+    validations:
+      required: true
+  - type: input
+    id: person-b
+    attributes:
+      label: Second person
+    validations:
+      required: true
+  - type: input
+    id: relationship
+    attributes:
+      label: Relationship
+      description: "e.g. first person is the father of the second"
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source link
+      description: A link to the published source that states the relationship
+      placeholder: https://
+    validations:
+      required: true
+  - type: textarea
+    id: quote
+    attributes:
+      label: Quote from the source
+      description: The sentence that states the relationship
+    validations:
+      required: true
+  - type: textarea
+    id: more
+    attributes:
+      label: Other sources or notes

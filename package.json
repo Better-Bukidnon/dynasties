@@ -10,6 +10,8 @@
   "scripts": {
     "data": "node scripts/build-data.mjs",
     "data:refresh": "node scripts/build-data.mjs --refresh",
+    "data:brgy": "node --use-system-ca scripts/build-barangays.mjs",
+    "data:brgy:refresh": "node --use-system-ca scripts/build-barangays.mjs --refresh",
     "check": "node scripts/check-families.mjs",
     "build": "node scripts/build.mjs",
     "serve": "python -m http.server 8080",

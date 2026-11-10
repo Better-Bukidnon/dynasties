@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Email the team
+    url: mailto:volunteer@betterbukidnon.org
+    about: For sensitive corrections, or if you don't have a GitHub account.
+  - name: OpenHalalan source data
+    url: https://github.com/RobertRLeung/OpenHalalan/issues/5
+    about: Errors in the underlying election results are also tracked upstream.
