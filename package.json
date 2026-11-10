@@ -1,0 +1,24 @@
+{
+  "name": "dynasties",
+  "version": "0.1.0",
+  "private": true,
+  "description": "dynasties.betterbukidnon.org: every elected official in Bukidnon since 2001 and the documented family ties between them. A Better Bukidnon site.",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "data": "node scripts/build-data.mjs",
+    "data:refresh": "node scripts/build-data.mjs --refresh",
+    "check": "node scripts/check-families.mjs",
+    "build": "node scripts/build.mjs",
+    "serve": "python -m http.server 8080",
+    "dev": "npm run build && wrangler dev",
+    "deploy:dry": "npm run build && wrangler deploy --dry-run",
+    "deploy": "npm run build && wrangler deploy"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "wrangler": "^4.157.0"
+  }
+}

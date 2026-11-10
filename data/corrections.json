@@ -1,0 +1,447 @@
+{
+  "_note": "Editor corrections applied by scripts/build-data.mjs on top of Open Halalan. Every entry says why. Never hand-edit data/officials.json; change this file and run `npm run data`. Reported upstream: https://github.com/RobertRLeung/OpenHalalan/issues/5 (remove a correction once the source is fixed; build-data fails loudly when a placeFix no longer matches).",
+  "mergedSlates": [
+    {
+      "years": [
+        2010,
+        2013
+      ],
+      "filedUnder": "CABANGLASAN",
+      "candidates": [
+        "CABANGLASAN",
+        "MALAYBALAY"
+      ],
+      "reason": "Open Halalan files the 2010 and 2013 Malaybalay City winners under Cabanglasan (two mayors and two vice mayors per year, and no Malaybalay rows). Each winner is placed by where they held office in other years."
+    },
+    {
+      "years": [
+        2010,
+        2013
+      ],
+      "filedUnder": "TALAKAG",
+      "candidates": [
+        "TALAKAG",
+        "VALENCIA"
+      ],
+      "reason": "Open Halalan files the 2010 and 2013 Valencia City winners under Talakag (two mayors and two vice mayors per year, and no Valencia rows). Each winner is placed by where they held office in other years."
+    },
+    {
+      "years": [
+        2004,
+        2007,
+        2010,
+        2013
+      ],
+      "filedUnder": "",
+      "candidates": "*",
+      "reason": "Some municipal winners have no city or municipality in Open Halalan, mostly Malitbog. Each winner is placed by where they held office in other years."
+    }
+  ],
+  "placeFixes": [
+    {
+      "year": 2010,
+      "position": "MAYOR",
+      "last": "ZUBIRI",
+      "first": "IGNACIO",
+      "place": "MALAYBALAY",
+      "reason": "Filed under Cabanglasan; Ignacio Zubiri was mayor of Malaybalay City (he won it again in 2016)."
+    },
+    {
+      "year": 2013,
+      "position": "MAYOR",
+      "last": "ZUBIRI",
+      "first": "IGNACIO",
+      "place": "MALAYBALAY",
+      "reason": "Filed under Cabanglasan; Ignacio Zubiri was mayor of Malaybalay City (he won it again in 2016)."
+    },
+    {
+      "year": 2010,
+      "position": "MAYOR",
+      "last": "CATARATA",
+      "first": "LEANDRO JOSE",
+      "place": "VALENCIA",
+      "reason": "Filed under Talakag; Leandro Jose Catarata was mayor of Valencia City (also in 2007)."
+    },
+    {
+      "year": 2013,
+      "position": "MAYOR",
+      "last": "GALARIO",
+      "first": "JOSE",
+      "place": "VALENCIA",
+      "reason": "Filed under Talakag; Jose Galario Jr. was mayor of Valencia City (also in 2001 and 2004)."
+    },
+    {
+      "year": 2010,
+      "position": "VICE MAYOR",
+      "last": "ALDEGUER",
+      "first": "VICTOR",
+      "place": "MALAYBALAY",
+      "reason": "Filed under Cabanglasan; Victor Aldeguer was a Malaybalay City official."
+    },
+    {
+      "year": 2013,
+      "position": "VICE MAYOR",
+      "last": "OBSIOMA",
+      "first": "LOLITA",
+      "place": "CABANGLASAN",
+      "reason": "Two vice mayors are filed under Cabanglasan for 2013; Lolita \"Lotlot\" Obsioma later served as Cabanglasan mayor (2022)."
+    },
+    {
+      "year": 2013,
+      "position": "VICE MAYOR",
+      "last": "DETICIO",
+      "first": "ROLAND",
+      "place": "MALAYBALAY",
+      "reason": "Two vice mayors are filed under Cabanglasan for 2013; the other one, Lolita Obsioma, is from Cabanglasan."
+    },
+    {
+      "year": 2013,
+      "position": "VICE MAYOR",
+      "last": "HUERVAS",
+      "first": "AZUCENA",
+      "place": "VALENCIA",
+      "reason": "Filed under Talakag; Azucena Huervas was later mayor of Valencia City (2016–2025)."
+    },
+    {
+      "year": 2013,
+      "position": "VICE MAYOR",
+      "last": "FACTURA",
+      "first": "VERGITO",
+      "place": "TALAKAG",
+      "reason": "Two vice mayors are filed under Talakag for 2013; Vergito Factura was later mayor of Talakag (2016–2025)."
+    },
+    {
+      "year": 2004,
+      "position": "VICE MAYOR",
+      "last": "ONTANILLAS",
+      "first": "MA. VICTORIA",
+      "place": "DON CARLOS",
+      "reason": "No municipality in the source; Don Carlos has no other 2004 vice mayor, and Ma. Victoria Ontanillas Pizarro was Don Carlos mayor in 2007."
+    },
+    {
+      "year": 2013,
+      "position": "VICE MAYOR",
+      "last": "CASIÑO",
+      "first": "GARY",
+      "place": "MALITBOG",
+      "reason": "No municipality in the source; Malitbog has no other 2013 vice mayor, and Gary Casiño was later Malitbog mayor (2022–2025)."
+    }
+  ],
+  "samePerson": [
+    {
+      "keys": [
+        "DELA ROSA|OSMUNDO",
+        "DELA ROSA|MUNDING"
+      ],
+      "name": "Osmundo \"Munding\" dela Rosa",
+      "reason": "Same seat (Malitbog mayor); \"Munding\" is the ballot nickname.",
+      "id": "dela-rosa-osmundo"
+    },
+    {
+      "keys": [
+        "ALVAREZ|PEDRO",
+        "ALVAREZ|ADONG"
+      ],
+      "name": "Pedro \"Adong\" Alvarez",
+      "reason": "Same seat (Baungon mayor) and same middle name, Roa; \"Adong\" is the ballot nickname."
+    },
+    {
+      "keys": [
+        "INOCANDO|RENANTE",
+        "INOCANDO|DODONG"
+      ],
+      "name": "Renante \"Dodong\" Inocando",
+      "reason": "Same seat (Cabanglasan mayor) and same middle name, Valdez; \"Dodong\" is the ballot nickname."
+    },
+    {
+      "keys": [
+        "DANDASAN|FRUTO",
+        "DANDASAN|DODONG"
+      ],
+      "name": "Fruto \"Dodong\" Dandasan",
+      "reason": "Same seat (Dangcagan mayor) and same middle name, Buchorno; \"Dodong\" is the ballot nickname."
+    },
+    {
+      "keys": [
+        "DANDASAN|MARK",
+        "DANDASAN|MAKOY"
+      ],
+      "name": "Mark Vincent \"Makoy\" Dandasan",
+      "reason": "Same seat (Dangcagan mayor), consecutive terms; \"Makoy\" is the ballot nickname."
+    },
+    {
+      "keys": [
+        "ANG RABANES|JIMBOY",
+        "ANG RABANES|REYNALDO"
+      ],
+      "name": "Reynaldo \"Jimboy\" Ang Rabanes",
+      "reason": "Same seat (Kibawe mayor) and same middle name, Sio; \"Jimboy\" is the ballot nickname."
+    },
+    {
+      "keys": [
+        "OBEDENCIO|JOSE",
+        "OBEDENCIO|JOE"
+      ],
+      "name": "Jose \"Joe\" Obedencio",
+      "reason": "Same seat (Maramag mayor) and same middle name, Vallejera."
+    },
+    {
+      "keys": [
+        "OBSIOMA|LOLITA",
+        "OBSIOMA|LOTLOT"
+      ],
+      "name": "Lolita \"Lotlot\" Obsioma",
+      "reason": "Same municipality (Cabanglasan) and same middle name, Nellas; \"Lotlot\" is the ballot nickname."
+    },
+    {
+      "keys": [
+        "LORENZO|POLING"
+      ],
+      "name": "Poling Lorenzo",
+      "reason": "Quezon mayor 2019–2025; the 2022 ballot adds \"III\". Treated as one person."
+    },
+    {
+      "keys": [
+        "PIZARRO|ALONA"
+      ],
+      "name": "Alona O. Pizarro",
+      "reason": "Same seat (Don Carlos mayor), consecutive terms; the 2022 row gives the middle name as \"Victoria\", the 2019 and 2025 rows as \"Ontanillas\"."
+    },
+    {
+      "keys": [
+        "ROQUE|ONEIL",
+        "ROQUE|ROGELIO"
+      ],
+      "id": "roque-rogelio-neil",
+      "name": "Rogelio Neil \"Oneil\" P. Roque",
+      "reason": "\"Oneil\" is the ballot name of Rogelio Neil Pepito Roque, 4th district representative (2013–2022) and governor from 2022 (MindaNews 2022; PCIJ 2025)."
+    },
+    {
+      "keys": [
+        "ROQUE|LAARNI"
+      ],
+      "id": "roque-laarni",
+      "name": "Laarni Lavin-Roque",
+      "reason": "Valencia City councilor (2019) and 4th district representative (2022, 2025) are the same person, Laarni Lavin-Roque (MindaNews 2022-05-10). The 2025 row gives her middle name as Pepito, which is her husband's."
+    },
+    {
+      "keys": [
+        "ACOSTA|JR",
+        "ACOSTA|JUAN"
+      ],
+      "id": "acosta-nereus",
+      "name": "Juan Romeo Nereus \"Neric\" O. Acosta",
+      "reason": "\"J.R. Nereus O. Acosta\" (2001) and \"Juan Romeo Nereus Acosta\" (2004) are the same 1st district representative, Neric Acosta."
+    },
+    {
+      "keys": [
+        "ACOSTA|MALOU",
+        "ACOSTA|MARIA"
+      ],
+      "id": "acosta-alba-malou",
+      "name": "Maria Lourdes \"Malou\" Acosta-Alba",
+      "reason": "Editors' match: the 1st district representative elected in 2013 as \"Maria Isidro Acosta\" and in 2016 and 2019 as \"Malou Acosta\" is Maria Lourdes Acosta-Alba, who left the seat in 2022 (MindaNews 2022-05-10)."
+    },
+    {
+      "keys": [
+        "FLORES|FLORENCIO",
+        "FLORES|DOCBOY"
+      ],
+      "id": "flores-florencio-jr",
+      "name": "Florencio \"Docboy\" T. Flores Jr.",
+      "reason": "\"Docboy Tadiar Flores\", elected Malaybalay mayor in 2019, is Florencio Tadiar Flores Jr.: the mayor who died in office in 2022, whose son Rep. Jonathan Keith Flores is \"son of the late former Malaybalay mayor Florencio Flores Jr.\" (MindaNews 2022-05-10; PCIJ 2025-05-22)."
+    },
+    {
+      "keys": [
+        "UY|ANTHONY",
+        "UY|CHECHE"
+      ],
+      "id": "uy-anthony",
+      "name": "Anthony \"Cheche\" A. Uy",
+      "reason": "Same middle name (Antivo) and seat. MindaNews (2025-05-13) says Anthony Uy \"won as mayor in 2016 and was reelected in 2019 and 2022\", the terms filed as \"Cheche Antivo Uy\"."
+    },
+    {
+      "keys": [
+        "CALINGASAN|LEONARDO"
+      ],
+      "id": "calingasan-leonardo",
+      "name": "Leonardo Genesis T. Calingasan",
+      "reason": "\"Leonardo Genesis T.\", \"Leonardo G. Tejano\" and \"Leonardo Tejano\" Calingasan are the same Libona official (councilor 2001–2010, mayor 2010–2019)."
+    },
+    {
+      "keys": [
+        "DELA ROSA|CATHERINE",
+        "DELA ROSA|CATHY"
+      ],
+      "id": "dela-rosa-catherine",
+      "name": "Catherine \"Cathy\" B. dela Rosa",
+      "reason": "Same middle name (Bandialan) and municipality (Malitbog); \"Cathy\" is the ballot nickname."
+    },
+    {
+      "keys": [
+        "FLORES|JOHN"
+      ],
+      "id": "flores-jonathan-keith",
+      "name": "Jonathan Keith \"John\" T. Flores",
+      "reason": "\"John Tello Flores\" on the ballot; 2nd district representative Jonathan Keith Flores (MindaNews 2022-05-10; PCIJ 2025-05-22)."
+    },
+    {
+      "keys": [
+        "ALBA|JOEMAN"
+      ],
+      "id": "alba-jose-manuel",
+      "name": "Jose Manuel \"Joeman\" Alba",
+      "reason": "\"Joeman\" is the ballot name of 1st district representative Jose Manuel Alba (MindaNews 2022-05-10)."
+    },
+    {
+      "keys": [
+        "GALARIO|CECIL"
+      ],
+      "id": "galario-cecil",
+      "name": "Grezil \"Cecil\" G. Galario-Fernandez",
+      "reason": "\"Cecil Galario\" on the ballot; Valencia City vice mayor from 2025 (MindaNews 2025-05-13; PCIJ 2025-05-22)."
+    }
+  ],
+  "nameNoise": [
+    "MAYOR",
+    "VICE-MAYOR",
+    "VICE",
+    "-",
+    "DOC",
+    "ATTY.",
+    "DR.",
+    "ENGR."
+  ],
+  "mojibake": {
+    "_note": "The source has Ñ double-encoded as 'Ã‘' in about 420 rows (mostly 2013); scripts/build-data.mjs repairs it. Any U+FFFD left is replaced with Ñ.",
+    "default": "Ñ"
+  },
+  "assign": [
+    {
+      "id": "zubiri-jose-maria-jr",
+      "name": "Jose Maria R. Zubiri Jr.",
+      "last": "ZUBIRI",
+      "first": "JOSE",
+      "terms": [
+        {
+          "year": 2001,
+          "position": "governor"
+        },
+        {
+          "year": 2004,
+          "position": "governor"
+        },
+        {
+          "year": 2007,
+          "position": "governor"
+        },
+        {
+          "year": 2010,
+          "position": "vice-governor"
+        },
+        {
+          "year": 2013,
+          "position": "governor"
+        },
+        {
+          "year": 2016,
+          "position": "governor"
+        },
+        {
+          "year": 2019,
+          "position": "governor"
+        },
+        {
+          "year": 2022,
+          "position": "representative"
+        }
+      ],
+      "reason": "The source spells his name five ways (\"Jose Ma. Jr. R.\", \"Jose Ma. Maria\", \"Jose Maria\", \"Jose Rubin\", \"Jose Maria Jr.\") and uses \"Jose Ma. Maria\" for his son as well. Governor 2001–2010 and 2013–2022, vice governor 2010–2013 and 3rd district representative from 2022 (MindaNews 2016-05-10, 2022-05-10)."
+    },
+    {
+      "id": "zubiri-jose-maria-iii",
+      "name": "Jose Maria \"Joey\" Zubiri III",
+      "last": "ZUBIRI",
+      "first": "JOSE",
+      "terms": [
+        {
+          "year": 2007,
+          "position": "representative"
+        },
+        {
+          "year": 2010,
+          "position": "representative"
+        },
+        {
+          "year": 2013,
+          "position": "representative"
+        }
+      ],
+      "reason": "These representative rows carry the same name as the governor, who was serving as governor at the time. MindaNews (2016-05-10) says Manuel Zubiri \"will replace his brother, Joey Zubiri, who is on his third term\" in the 3rd district."
+    },
+    {
+      "id": "zubiri-audrey",
+      "name": "Audrey Kay \"Inday\" T. Zubiri",
+      "last": "ZUBIRI",
+      "first": "INDAY",
+      "terms": [
+        {
+          "year": 2025,
+          "position": "representative"
+        }
+      ],
+      "reason": "Filed as \"Inday Lucasan Zubiri\". PCIJ (2025-05-22): \"Audrey Zubiri, wife of Sen. Juan Miguel Zubiri, won by a landslide in the third district congressional race.\""
+    },
+    {
+      "id": "edma-levi-sr",
+      "name": "Levi C. Edma Sr.",
+      "last": "EDMA",
+      "first": "LEVI",
+      "terms": [
+        {
+          "year": 2007,
+          "position": "mayor"
+        },
+        {
+          "year": 2010,
+          "position": "vice-mayor"
+        },
+        {
+          "year": 2010,
+          "position": "councilor"
+        },
+        {
+          "year": 2013,
+          "position": "mayor"
+        },
+        {
+          "year": 2013,
+          "position": "councilor"
+        },
+        {
+          "year": 2016,
+          "position": "mayor"
+        },
+        {
+          "year": 2019,
+          "position": "mayor"
+        }
+      ],
+      "reason": "\"Levi Cañete Edma\" and \"Levi Edma Sr.\" are the same San Fernando mayor; MindaNews (2016-05-10) reports \"the reelection of Mayor Levi Edma Sr.\" Kept apart from his son Levi Edma Jr."
+    }
+  ],
+  "addTerms": [
+    {
+      "year": 2013,
+      "position": "mayor",
+      "place": "kadingilan",
+      "last": "CANOY",
+      "first": "JERRY",
+      "suffix": "SR.",
+      "ballot": "CANOY, JERRY SR. (added)",
+      "party": "IND",
+      "reason": "Kadingilan 2013 is missing from the source. MindaNews reports that independent Jerry Canoy Sr. won over incumbent Mayor Talaid.",
+      "source": "https://mindanews.com/?p=46046"
+    }
+  ]
+}

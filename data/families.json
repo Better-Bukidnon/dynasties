@@ -1,0 +1,340 @@
+{
+  "updated": "2026-11-10",
+  "note": "Ties are listed only where a published source states them. Researched in November 2026 from MindaNews, PCIJ and official LGU pages; each tie links to its sources. Coverage is uneven: many towns have no documented ties yet, which does not mean there are none.",
+  "_schema": "members[].key is an officials.json person id, or x-… for a relative with no Bukidnon office in 2001–2025 (person: null). ties[]: aIs is A's role relative to B (\"father\"), bIs is B's role relative to A (\"son\"). Every tie needs at least one source with a url.",
+  "families": [
+    {
+      "id": "zubiri",
+      "name": "Zubiri",
+      "summary": "Jose Maria Zubiri Jr. was governor for most of 2001–2022 and returned to the House in 2022. His sons Juan Miguel, Joey and Manuel have held the 3rd district seat, his nephew Ignacio was Malaybalay mayor, and his daughter-in-law Audrey holds the 3rd district seat since 2025.",
+      "members": [
+        { "key": "zubiri-jose-maria-jr", "person": "zubiri-jose-maria-jr" },
+        { "key": "zubiri-juan", "person": "zubiri-juan", "offices": ["Senator of the Philippines"] },
+        { "key": "zubiri-jose-maria-iii", "person": "zubiri-jose-maria-iii" },
+        { "key": "zubiri-manuel", "person": "zubiri-manuel" },
+        { "key": "zubiri-ignacio", "person": "zubiri-ignacio" },
+        { "key": "zubiri-audrey", "person": "zubiri-audrey" }
+      ],
+      "ties": [
+        {
+          "a": "zubiri-jose-maria-jr", "b": "zubiri-juan", "aIs": "father", "bIs": "son",
+          "sources": [
+            { "publisher": "MindaNews", "date": "2016-04-02", "title": "Zubiri: time for a Mindanao leader to be president", "url": "https://mindanews.com/top-stories/2016/04/zubiri-time-for-a-mindanao-leader-to-be-president/", "quote": "father of former Senator Miguel Zubiri" }
+          ]
+        },
+        {
+          "a": "zubiri-jose-maria-jr", "b": "zubiri-manuel", "aIs": "father", "bIs": "son",
+          "sources": [
+            { "publisher": "MindaNews", "date": "2016-05-10", "title": "Dynasties remain, fall in Bukidnon", "url": "https://mindanews.com/?p=67658", "quote": "Manuel Zubiri, a son of the governor, was poised to win as congressman of the 3rd District." },
+            { "publisher": "MindaNews", "date": "2022-07-13", "title": "Special report: Mindanao 2022 to 2025, fat and obese dynasties rule", "url": "https://mindanews.com/top-stories/2022/07/special-report-mindanao-2022-to-2025-fat-and-obese-dynasties-rule-2/" }
+          ]
+        },
+        {
+          "a": "zubiri-manuel", "b": "zubiri-jose-maria-iii", "aIs": "brother", "bIs": "brother",
+          "sources": [
+            { "publisher": "MindaNews", "date": "2016-05-10", "title": "Dynasties remain, fall in Bukidnon", "url": "https://mindanews.com/?p=67658", "quote": "He will replace his brother, Joey Zubiri, who is on his third term." }
+          ]
+        },
+        {
+          "a": "zubiri-jose-maria-jr", "b": "zubiri-ignacio", "aIs": "uncle", "bIs": "nephew",
+          "sources": [
+            { "publisher": "MindaNews", "date": "2016-05-10", "title": "Dynasties remain, fall in Bukidnon", "url": "https://mindanews.com/?p=67658", "quote": "Malaybalay City Mayor Ignacio Zubiri, nephew of the governor" },
+            { "publisher": "MindaNews", "date": "2022-05-10", "title": "Gov. Zubiri leads House race but defeat looms for son in gubernatorial contest", "url": "https://mindanews.com/top-stories/2022/05/gov-zubiri-leads-house-race-but-defeat-looms-for-son-in-gubernatorial-contest/" }
+          ]
+        },
+        {
+          "a": "zubiri-juan", "b": "zubiri-audrey", "aIs": "husband", "bIs": "wife",
+          "sources": [
+            { "publisher": "PCIJ", "date": "2025-05-22", "title": "Same old names win in Northern Mindanao", "url": "https://pcij.org/2025/05/22/same-old-names-win-in-northern-mindanao-dimaporo-oaminal-romualdo-and-others/", "quote": "Audrey Zubiri, wife of Sen. Juan Miguel Zubiri, won by a landslide in the third district congressional race." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "acosta-alba",
+      "name": "Acosta-Alba",
+      "summary": "Socorro Acosta was Manolo Fortich mayor and 1st district representative. Her son Neric and daughter Malou held the same House seat, and Malou's husband Joeman Alba holds it since 2022.",
+      "members": [
+        { "key": "acosta-socorro", "person": "acosta-socorro", "offices": ["Representative, 1st district of Bukidnon (before 2001)"] },
+        { "key": "acosta-nereus", "person": "acosta-nereus" },
+        { "key": "acosta-alba-malou", "person": "acosta-alba-malou" },
+        { "key": "alba-jose-manuel", "person": "alba-jose-manuel" }
+      ],
+      "ties": [
+        {
+          "a": "acosta-socorro", "b": "acosta-alba-malou", "aIs": "mother", "bIs": "daughter",
+          "sources": [
+            { "publisher": "MindaNews", "date": "2016-05-10", "title": "Dynasties remain, fall in Bukidnon", "url": "https://mindanews.com/?p=67658", "quote": "Acosta-Alba's mother, Socorro Acosta, had served as congresswoman of the 1st District and mayor of Manolo Fortich." }
+          ]
+        },
+        {
+          "a": "acosta-socorro", "b": "acosta-nereus", "aIs": "mother", "bIs": "son",
+          "sources": [
+            { "publisher": "MindaNews", "date": "2024-03-16", "title": "News briefs, 16 March 2024", "url": "https://mindanews.com/top-stories/2024/03/news-briefs-16-march-2024/", "quote": "Her son, former Bukidnon 1st District representative Neric Acosta" },
+            { "publisher": "MindaNews", "date": "2007-05-17", "title": "Analysis: Zubiri vs Acosta, two faces of a campaign", "url": "https://mindanews.com/c99-issues/2007/05/analysis-zubiri-vs-acosta-two-faces-of-a-campaign/" }
+          ]
+        },
+        {
+          "a": "acosta-nereus", "b": "acosta-alba-malou", "aIs": "brother", "bIs": "sister",
+          "sources": [
+            { "publisher": "MindaNews", "date": "2016-05-10", "title": "Dynasties remain, fall in Bukidnon", "url": "https://mindanews.com/?p=67658", "quote": "Her brother, Nereus Acosta, had served as provincial board member and representative of the same district." }
+          ]
+        },
+        {
+          "a": "alba-jose-manuel", "b": "acosta-alba-malou", "aIs": "husband", "bIs": "wife",
+          "sources": [
+            { "publisher": "MindaNews", "date": "2022-05-10", "title": "Gov. Zubiri leads House race but defeat looms for son in gubernatorial contest", "url": "https://mindanews.com/top-stories/2022/05/gov-zubiri-leads-house-race-but-defeat-looms-for-son-in-gubernatorial-contest/", "quote": "Joeman Alba, husband of outgoing 1st District Rep. Malou Acosta-Alba" },
+            { "publisher": "PCIJ", "date": "2025-05-22", "title": "Same old names win in Northern Mindanao", "url": "https://pcij.org/2025/05/22/same-old-names-win-in-northern-mindanao-dimaporo-oaminal-romualdo-and-others/" }
+          ]
+        },
+        {
+          "a": "alba-jose-manuel", "b": "acosta-nereus", "aIs": "brother-in-law", "bIs": "brother-in-law",
+          "sources": [
+            { "publisher": "MindaNews", "date": "2022-05-16", "title": "MindaNews election report", "url": "https://mindanews.com/?p=130875", "quote": "his brother-in-law Neric Acosta" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "galario",
+      "name": "Galario",
+      "summary": "Jose Galario Jr. was Valencia mayor in 2001–2007 and from 2013. His wife Junamie \"Amie\" Galario became mayor in 2025 with their daughter Cecil as vice mayor; his son Glen was a city councilor.",
+      "members": [
+        { "key": "galario-jose-jr", "person": "galario-jose-jr" },
+        { "key": "galario-junamie", "person": "galario-junamie" },
+        { "key": "galario-cecil", "person": "galario-cecil" },
+        { "key": "galario-glen", "person": "galario-glen" }
+      ],
+      "ties": [
+        {
+          "a": "galario-jose-jr", "b": "galario-junamie", "aIs": "husband", "bIs": "wife",
+          "sources": [
+            { "publisher": "MindaNews", "date": "2025-05-13", "title": "In Valencia City, Bukidnon, mother is mayor, daughter is vice mayor", "url": "https://mindanews.com/top-stories/2025/05/in-valencia-city-bukidnon-mother-is-mayor-daughter-is-vice-mayor/", "quote": "Junamie's real name is Amie, but she combined it with her husband's (Jose Galario Jr.) moniker" },
+            { "publisher": "MindaNews", "date": "2026-01-10", "title": "Mindanao 2025: still all in the family in most of Mindanao's 33 cities", "url": "https://mindanews.com/top-stories/2026/01/mindanao-2025-still-all-in-the-family-in-most-of-mindanaos-33-cities/" }
+          ]
+        },
+        {
+          "a": "galario-junamie", "b": "galario-cecil", "aIs": "mother", "bIs": "daughter",
+          "sources": [
+            { "publisher": "PCIJ", "date": "2025-05-22", "title": "Same old names win in Northern Mindanao", "url": "https://pcij.org/2025/05/22/same-old-names-win-in-northern-mindanao-dimaporo-oaminal-romualdo-and-others/", "quote": "Junamie Galario and her daughter Cecil were elected mayor and vice mayor in Valencia City, respectively." },
+            { "publisher": "MindaNews", "date": "2025-05-13", "title": "In Valencia City, Bukidnon, mother is mayor, daughter is vice mayor", "url": "https://mindanews.com/top-stories/2025/05/in-valencia-city-bukidnon-mother-is-mayor-daughter-is-vice-mayor/" }
+          ]
+        },
+        {
+          "a": "galario-jose-jr", "b": "galario-glen", "aIs": "father", "bIs": "son",
+          "sources": [
+            { "publisher": "MindaNews", "date": "2013-05-16", "title": "Valencia City ex-mayor Galario regains post", "url": "https://mindanews.com/top-stories/2013/05/valencia-city-ex-mayor-galario-regains-post/", "quote": "Glenn Galario, an incumbent councilor and son of the mayor-elect." },
+            { "publisher": "MindaNews", "date": "2007-05-18", "title": "MindaNews election report", "url": "https://mindanews.com/?p=8322" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "roque",
+      "name": "Roque",
+      "summary": "Rogelio Neil \"Oneil\" Roque held the 4th district House seat from 2013 and became governor in 2022. His wife Laarni Lavin-Roque, a Valencia City councilor, took over the 4th district seat.",
+      "members": [
+        { "key": "roque-rogelio-neil", "person": "roque-rogelio-neil" },
+        { "key": "roque-laarni", "person": "roque-laarni" }
+      ],
+      "ties": [
+        {
+          "a": "roque-rogelio-neil", "b": "roque-laarni", "aIs": "husband", "bIs": "wife",
+          "sources": [
+            { "publisher": "PCIJ", "date": "2025-05-22", "title": "Same old names win in Northern Mindanao", "url": "https://pcij.org/2025/05/22/same-old-names-win-in-northern-mindanao-dimaporo-oaminal-romualdo-and-others/", "quote": "In Bukidnon, Gov. Oneil Roque won reelection, while his wife, 4th District Rep. Laarni Roque, kept her seat." },
+            { "publisher": "MindaNews", "date": "2022-05-10", "title": "Gov. Zubiri leads House race but defeat looms for son in gubernatorial contest", "url": "https://mindanews.com/top-stories/2022/05/gov-zubiri-leads-house-race-but-defeat-looms-for-son-in-gubernatorial-contest/" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "flores",
+      "name": "Flores",
+      "summary": "Florencio \"Docboy\" Flores Jr. was Malaybalay mayor and 2nd district representative, and died in office as mayor in 2022. His son Jonathan Keith holds the 2nd district seat and his son Brian sits on the city council.",
+      "members": [
+        { "key": "flores-florencio-jr", "person": "flores-florencio-jr" },
+        { "key": "flores-jonathan-keith", "person": "flores-jonathan-keith" },
+        { "key": "flores-brian", "person": "flores-brian" }
+      ],
+      "ties": [
+        {
+          "a": "flores-florencio-jr", "b": "flores-jonathan-keith", "aIs": "father", "bIs": "son",
+          "sources": [
+            { "publisher": "PCIJ", "date": "2025-05-22", "title": "Same old names win in Northern Mindanao", "url": "https://pcij.org/2025/05/22/same-old-names-win-in-northern-mindanao-dimaporo-oaminal-romualdo-and-others/", "quote": "son of the late former Malaybalay mayor Florencio Flores Jr." },
+            { "publisher": "MindaNews", "date": "2022-05-10", "title": "Malaybalay City mayor paces lone rival", "url": "https://mindanews.com/top-stories/2022/05/malaybalay-city-mayor-paces-lone-rival/" }
+          ]
+        },
+        {
+          "a": "flores-jonathan-keith", "b": "flores-brian", "aIs": "brother", "bIs": "brother",
+          "sources": [
+            { "publisher": "MindaNews", "date": "2022-05-10", "title": "Malaybalay City mayor paces lone rival", "url": "https://mindanews.com/top-stories/2022/05/malaybalay-city-mayor-paces-lone-rival/", "quote": "Brian Flores, Jonathan Keith's younger brother" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "okinlay",
+      "name": "Okinlay",
+      "summary": "Three Okinlays have been mayor of Impasug-ong: Mario, his wife Julia, and their child Mai-Mai, elected in 2025. Mario's brother Dodo was vice mayor.",
+      "members": [
+        { "key": "okinlay-mario", "person": "okinlay-mario", "offices": ["Mayor of Impasug-ong from 1998 (MindaNews)"] },
+        { "key": "okinlay-julia", "person": "okinlay-julia" },
+        { "key": "okinlay-mai-mai", "person": "okinlay-mai-mai" },
+        { "key": "x-dodo-okinlay", "person": null, "name": "Dodo Okinlay", "offices": ["Vice Mayor of Impasug-ong (in office in 2016, per MindaNews)"], "note": "Not matched to a record in the election data; possibly Democrito T. Okinlay, councilor elected in 2013." }
+      ],
+      "ties": [
+        {
+          "a": "okinlay-mario", "b": "okinlay-julia", "aIs": "husband", "bIs": "wife",
+          "sources": [
+            { "publisher": "MindaNews", "date": "2016-05-10", "title": "Dynasties remain, fall in Bukidnon", "url": "https://mindanews.com/?p=67658", "quote": "Okinlay served as mayor from 2007-2010, replacing her husband, Mario Okinlay, who was mayor from 1998-2007." },
+            { "publisher": "MindaNews", "date": "2025-05-13", "title": "Another Okinlay wins as mayor in Bukidnon, the third in the family", "url": "https://mindanews.com/top-stories/2025/05/another-okinlay-wins-as-mayor-in-bukidnon-the-third-in-the-family/" }
+          ]
+        },
+        {
+          "a": "okinlay-mario", "b": "okinlay-mai-mai", "aIs": "father", "bIs": "child",
+          "sources": [
+            { "publisher": "MindaNews", "date": "2025-05-13", "title": "Another Okinlay wins as mayor in Bukidnon, the third in the family", "url": "https://mindanews.com/top-stories/2025/05/another-okinlay-wins-as-mayor-in-bukidnon-the-third-in-the-family/", "quote": "Okinlay is one of the two children of the late mayor Mario Okinlay" }
+          ]
+        },
+        {
+          "a": "okinlay-mario", "b": "x-dodo-okinlay", "aIs": "brother", "bIs": "brother",
+          "sources": [
+            { "publisher": "MindaNews", "date": "2016-05-10", "title": "Dynasties remain, fall in Bukidnon", "url": "https://mindanews.com/?p=67658", "quote": "Mario's brother, Vice Mayor Dodo Okinlay, also lost to Councilor Ma. Norly Pepito." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dela-rosa",
+      "name": "dela Rosa",
+      "summary": "Osmundo \"Munding\" dela Rosa and his wife Aida have both been mayor of Malitbog. Their daughter Catherine was a councilor and is vice mayor since 2025.",
+      "members": [
+        { "key": "dela-rosa-osmundo", "person": "dela-rosa-osmundo" },
+        { "key": "dela-rosa-aida", "person": "dela-rosa-aida" },
+        { "key": "dela-rosa-catherine", "person": "dela-rosa-catherine" }
+      ],
+      "ties": [
+        {
+          "a": "dela-rosa-osmundo", "b": "dela-rosa-aida", "aIs": "husband", "bIs": "wife",
+          "sources": [
+            { "publisher": "MindaNews", "date": "2012-10-10", "title": "3 Bukidnon mayors unopposed", "url": "https://mindanews.com/top-stories/2012/10/3-bukidnon-mayors-unopposed/", "quote": "her husband, former mayor Osmundo, is vying for the seat again." }
+          ]
+        },
+        {
+          "a": "dela-rosa-aida", "b": "dela-rosa-catherine", "aIs": "mother", "bIs": "daughter",
+          "sources": [
+            { "publisher": "MindaNews", "date": "2012-10-10", "title": "3 Bukidnon mayors unopposed", "url": "https://mindanews.com/top-stories/2012/10/3-bukidnon-mayors-unopposed/", "quote": "Their daughter Catherine is also running for a seat at the municipal council." }
+          ]
+        },
+        {
+          "a": "dela-rosa-osmundo", "b": "dela-rosa-catherine", "aIs": "father", "bIs": "daughter",
+          "sources": [
+            { "publisher": "MindaNews", "date": "2012-10-10", "title": "3 Bukidnon mayors unopposed", "url": "https://mindanews.com/top-stories/2012/10/3-bukidnon-mayors-unopposed/", "quote": "Their daughter Catherine is also running for a seat at the municipal council." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "edma",
+      "name": "Edma",
+      "summary": "Laurencia Edma and her husband Levi Edma Sr. have alternated as mayor of San Fernando. Their son Levi Jr. was elected to the municipal council in 2016.",
+      "members": [
+        { "key": "edma-laurencia", "person": "edma-laurencia" },
+        { "key": "edma-levi-sr", "person": "edma-levi-sr" },
+        { "key": "edma-levi-jr", "person": "edma-levi-jr" }
+      ],
+      "ties": [
+        {
+          "a": "edma-levi-sr", "b": "edma-laurencia", "aIs": "husband", "bIs": "wife",
+          "sources": [
+            { "publisher": "MindaNews", "date": "2012-10-10", "title": "3 Bukidnon mayors unopposed", "url": "https://mindanews.com/top-stories/2012/10/3-bukidnon-mayors-unopposed/", "quote": "But her husband Levi Sr. is joining the mayoralty race against two opponents" }
+          ]
+        },
+        {
+          "a": "edma-laurencia", "b": "edma-levi-jr", "aIs": "mother", "bIs": "son",
+          "sources": [
+            { "publisher": "MindaNews", "date": "2012-10-10", "title": "3 Bukidnon mayors unopposed", "url": "https://mindanews.com/top-stories/2012/10/3-bukidnon-mayors-unopposed/", "quote": "Edma's son Levi Jr. is also running for a seat at the municipal council." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "baula",
+      "name": "Baula",
+      "summary": "Rey Baula and his wife Marie Ann Baula held the Sumilao mayoralty from 1992 to 2016. Rey's brother Remee Baula was mayor of Impasug-ong and a provincial board member.",
+      "members": [
+        { "key": "baula-rey", "person": "baula-rey", "offices": ["Mayor of Sumilao (1992–2001, per MindaNews)"] },
+        { "key": "baula-marie", "person": "baula-marie" },
+        { "key": "x-remee-baula", "person": null, "name": "Remee Baula", "offices": ["Mayor of Impasug-ong (1988–1998)", "Provincial Board Member (1998–2001)"] }
+      ],
+      "ties": [
+        {
+          "a": "baula-rey", "b": "baula-marie", "aIs": "husband", "bIs": "wife",
+          "sources": [
+            { "publisher": "MindaNews", "date": "2016-05-10", "title": "Dynasties remain, fall in Bukidnon", "url": "https://mindanews.com/?p=67658", "quote": "His wife, Marie Ann Baula, replaced him from 2001-2010." }
+          ]
+        },
+        {
+          "a": "baula-rey", "b": "x-remee-baula", "aIs": "brother", "bIs": "brother",
+          "sources": [
+            { "publisher": "MindaNews", "date": "2016-05-10", "title": "Dynasties remain, fall in Bukidnon", "url": "https://mindanews.com/?p=67658", "quote": "Rey's brother, Remee Baula, served as mayor of Impasugong from 1988-1998, and as provincial board member from 1998-2001." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "calingasan",
+      "name": "Calingasan",
+      "summary": "Alex Calingasan, former Libona mayor, was vice governor, governor (2010–2013) and board member. His son Leonardo was Libona mayor from 2010 to 2019.",
+      "members": [
+        { "key": "calingasan-alex", "person": "calingasan-alex", "offices": ["Mayor of Libona (before 2001)"] },
+        { "key": "calingasan-leonardo", "person": "calingasan-leonardo" }
+      ],
+      "ties": [
+        {
+          "a": "calingasan-alex", "b": "calingasan-leonardo", "aIs": "father", "bIs": "son",
+          "sources": [
+            { "publisher": "MindaNews", "date": "2016-05-10", "title": "Dynasties remain, fall in Bukidnon", "url": "https://mindanews.com/?p=67658", "quote": "His father, incumbent Vice Gov. Alex Calingasan is leading the race for Sangguniang Panlalawigan in the First District." },
+            { "publisher": "MindaNews", "date": "2012-10-10", "title": "3 Bukidnon mayors unopposed", "url": "https://mindanews.com/top-stories/2012/10/3-bukidnon-mayors-unopposed/" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quino",
+      "name": "Quiño",
+      "summary": "Rogelio Quiño and Clive Quiño have traded the Manolo Fortich mayoralty and the provincial vice governorship since 2016. Sources disagree on how they are related.",
+      "members": [
+        { "key": "quino-rogelio", "person": "quino-rogelio" },
+        { "key": "quino-clive", "person": "quino-clive" }
+      ],
+      "ties": [
+        {
+          "a": "quino-rogelio", "b": "quino-clive", "aIs": "relative", "bIs": "relative",
+          "note": "Sources disagree. The Municipality of Manolo Fortich (2022) calls Clive the mayor's son; MindaNews (2016) calls him Rogelio's younger brother.",
+          "sources": [
+            { "publisher": "LGU Manolo Fortich", "date": "2022-10-12", "title": "SILG Abalos heads Water System Project Turnover in Manolo Fortich", "url": "https://www.web.manolofortich.gov.ph/post/39/silg-abalos-heads-water-system-project-turnover-in-manolo-fortich", "quote": "the quality service of Mayor Quiño and his son Vice Governor Clive D. Quiño" },
+            { "publisher": "MindaNews", "date": "2016-05-10", "title": "Dynasties remain, fall in Bukidnon", "url": "https://mindanews.com/?p=67658", "quote": "Clive Quino, younger brother of Rogelio, won as mayor of Manolo Fortich" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aldeguer",
+      "name": "Aldeguer",
+      "summary": "Victor Aldeguer was a Malaybalay City board member, councilor and vice mayor. His son Niko has sat on the city council since 2019.",
+      "members": [
+        { "key": "aldeguer-victor", "person": "aldeguer-victor" },
+        { "key": "aldeguer-niko", "person": "aldeguer-niko" }
+      ],
+      "ties": [
+        {
+          "a": "aldeguer-victor", "b": "aldeguer-niko", "aIs": "father", "bIs": "son",
+          "sources": [
+            { "publisher": "MindaNews", "date": "2022-05-10", "title": "Malaybalay City mayor paces lone rival", "url": "https://mindanews.com/top-stories/2022/05/malaybalay-city-mayor-paces-lone-rival/", "quote": "Niko Aldeguer, a son of former Malaybalay City vice mayor Victor Aldeguer" }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  // Cloudflare Workers static-assets deploy. `npm run build` writes the site to dist/.
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "dynasties-bukidnon",
+  "compatibility_date": "2026-11-10",
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "none"
+  },
+  "observability": {
+    "enabled": true
+  },
+  // Required by `npx wrangler preview`, which Workers Builds runs for non-production branches
+  "previews": {},
+  // Until the custom domain is turned on, the site is served on *.workers.dev.
+  // Planned home, set here rather than in the dashboard (like the other Better Bukidnon sites):
+  // "routes": [{ "pattern": "dynasties.betterbukidnon.org", "custom_domain": true }],
+  "workers_dev": true,
+  "preview_urls": true
+}

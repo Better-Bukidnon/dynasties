@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bukidnon Political Families · Better Bukidnon</title>
+    <meta
+      name="description"
+      content="Independent and unofficial. Every elected official in Bukidnon since 2001, from mayors and councilors to the governor and House members, and the documented family ties between them, each linked to its source."
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#5f1e4d" />
+    <link rel="canonical" href="https://dynasties.betterbukidnon.org/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Bukidnon Political Families" />
+    <meta property="og:title" content="Bukidnon Political Families · Better Bukidnon" />
+    <meta
+      property="og:description"
+      content="Independent and unofficial. Every elected official in Bukidnon since 2001 and the documented family ties between them, each linked to its source."
+    />
+    <meta property="og:url" content="https://dynasties.betterbukidnon.org/" />
+    <meta property="og:locale" content="en_PH" />
+    <meta name="twitter:card" content="summary" />
+
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Same type roles as budget.betterbukidnon.org: Figtree speaks, Inter works, mono labels. -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Figtree:wght@600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/dynasties.css" />
+  </head>
+
+  <body>
+    <a href="#main-content" class="dy-skip" data-i18n="dy-skip">Skip to main content</a>
+
+    <header class="dy-masthead">
+      <div class="dy-masthead-top">
+        <div class="dy-page dy-masthead-top-inner">
+          <span class="dy-muted" id="today"></span>
+          <span class="dy-masthead-links">
+            <a href="https://betterbukidnon.org/projects/" target="_blank" rel="noopener">Better Bukidnon <span aria-hidden="true">↗</span></a>
+            <a href="https://saln.betterbukidnon.org/" target="_blank" rel="noopener"
+              ><span data-i18n="dy-top-saln">SALN tracker</span> <span aria-hidden="true">↗</span></a
+            >
+            <span class="dy-lang" role="group" aria-label="Language" data-i18n-aria="dy-lang-label">
+              <button type="button" data-lang="en" lang="en">EN</button>
+              <button type="button" data-lang="fil" lang="fil">FIL</button>
+              <button type="button" data-lang="ceb" lang="ceb">CEB</button>
+            </span>
+          </span>
+        </div>
+      </div>
+      <div class="dy-page dy-masthead-main">
+        <a href="#/" class="dy-masthead-title">
+          <span class="dy-masthead-kicker" data-i18n="dy-kicker">Province of Bukidnon · Elected officials 2001–2025</span>
+          <span class="dy-masthead-name" data-i18n="dy-title">Political Families</span>
+        </a>
+        <a class="dy-masthead-with" href="https://robertrleung.github.io/OpenHalalan/" target="_blank" rel="noopener">
+          <span class="dy-label" data-i18n="dy-data-from">Election data from</span>
+          <span class="dy-masthead-source">OpenHalalan</span>
+          <span class="dy-masthead-via" data-i18n="dy-via">family ties from published sources</span>
+        </a>
+      </div>
+      <nav class="dy-subnav" aria-label="Sections" data-i18n-aria="dy-nav-label">
+        <div class="dy-page dy-subnav-inner">
+          <a href="#/" data-nav="mayors" data-i18n="dy-nav-mayors">Mayors</a>
+          <a href="#/province" data-nav="province" data-i18n="dy-nav-province">Province</a>
+          <a href="#/families" data-nav="families" data-i18n="dy-nav-families">Families</a>
+          <a href="#/officials" data-nav="officials" data-i18n="dy-nav-officials">All officials</a>
+          <a href="#/about" data-nav="about" data-i18n="dy-nav-about">About the data</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main-content" class="dy-main" tabindex="-1">
+      <div class="dy-page">
+        <p class="dy-disclaimer" data-i18n="dy-disclaimer">
+          A family tie is listed only when a published source states it, and each one links to that source.
+          Being related to another official is not wrongdoing, and nothing here suggests it.
+        </p>
+
+        <!-- Mayors (home) -->
+        <section class="dy-view" data-view="mayors" hidden>
+          <div class="dy-page-head">
+            <p class="dy-lede" data-i18n="dy-desc">
+              Every mayor of Bukidnon's 2 cities and 20 municipalities since 2001, and the elected officials
+              they are related to. Open a city or municipality to see its vice mayors and councilors too.
+            </p>
+          </div>
+
+          <dl class="dy-stats" aria-live="polite">
+            <div>
+              <dt class="dy-label" data-i18n="dy-stat-officials">Officials on record</dt>
+              <dd class="dy-stat" id="stat-people">…</dd>
+            </div>
+            <div>
+              <dt class="dy-label" data-i18n="dy-stat-families">Documented families</dt>
+              <dd class="dy-stat" id="stat-families">…</dd>
+            </div>
+            <div>
+              <dt class="dy-label" data-i18n="dy-stat-mayors-tied">Mayors 2025 with a documented relative in office</dt>
+              <dd class="dy-stat dy-stat-accent" id="stat-tied">…</dd>
+            </div>
+            <div>
+              <dt class="dy-label" data-i18n="dy-stat-ties">Documented ties</dt>
+              <dd class="dy-stat" id="stat-ties">…</dd>
+            </div>
+          </dl>
+
+          <div class="dy-toolbar">
+            <div class="dy-filter">
+              <label for="m-search" data-i18n="dy-search-place">Find a city or municipality, or a mayor</label>
+              <input id="m-search" type="search" placeholder="e.g. Lantapan, Galario" data-i18n-placeholder="dy-search-place-ph" />
+            </div>
+            <div class="dy-filter dy-filter-narrow">
+              <label for="m-district" data-i18n="dy-district">District</label>
+              <select id="m-district">
+                <option value="" data-i18n="dy-district-all">All districts</option>
+              </select>
+            </div>
+            <label class="dy-check"><input type="checkbox" id="m-tied" /> <span data-i18n="dy-only-tied">Only places with documented ties</span></label>
+          </div>
+
+          <div class="dy-panel">
+            <div class="dy-table-wrap">
+              <table class="dy-table">
+                <thead>
+                  <tr>
+                    <th scope="col" data-i18n="dy-col-place">City / Municipality</th>
+                    <th scope="col" data-i18n="dy-col-mayors">Mayors since 2001</th>
+                    <th scope="col" data-i18n="dy-col-ties">Documented family ties</th>
+                  </tr>
+                </thead>
+                <tbody id="mayor-rows"></tbody>
+              </table>
+            </div>
+          </div>
+          <p class="dy-empty" id="mayor-empty" hidden data-i18n="dy-empty">Nothing matches.</p>
+          <p class="dy-source"><span class="dy-dot" aria-hidden="true"></span><span data-i18n="dy-dot-legend">Has a documented relative who held elected office.</span></p>
+        </section>
+
+        <!-- One city or municipality -->
+        <section class="dy-view" data-view="place" hidden><div id="place-body"></div></section>
+
+        <!-- Province-wide offices -->
+        <section class="dy-view" data-view="province" hidden><div id="province-body"></div></section>
+
+        <!-- Families -->
+        <section class="dy-view" data-view="families" hidden><div id="families-body"></div></section>
+        <section class="dy-view" data-view="family" hidden><div id="family-body"></div></section>
+
+        <!-- Officials -->
+        <section class="dy-view" data-view="officials" hidden>
+          <h1 class="dy-h1" data-i18n="dy-nav-officials">All officials</h1>
+          <p class="dy-lede" data-i18n="dy-officials-desc">Every winner of a provincial, district, city or municipal seat in Bukidnon from 2001 to 2025.</p>
+          <div class="dy-toolbar" style="margin-top: 20px">
+            <div class="dy-filter">
+              <label for="o-search" data-i18n="dy-search-person">Search by name</label>
+              <input id="o-search" type="search" placeholder="Surname or first name" data-i18n-placeholder="dy-search-person-ph" />
+            </div>
+            <div class="dy-filter dy-filter-narrow">
+              <label for="o-position" data-i18n="dy-position">Office</label>
+              <select id="o-position"><option value="" data-i18n="dy-position-all">Any office</option></select>
+            </div>
+            <div class="dy-filter dy-filter-narrow">
+              <label for="o-place" data-i18n="dy-place">Place</label>
+              <select id="o-place"><option value="" data-i18n="dy-place-all">All of Bukidnon</option></select>
+            </div>
+            <label class="dy-check"><input type="checkbox" id="o-tied" /> <span data-i18n="dy-only-tied-people">Only people with documented ties</span></label>
+          </div>
+          <p class="dy-count" id="o-count"></p>
+          <ul class="dy-results" id="o-results"></ul>
+          <nav class="dy-pager" id="o-pager" aria-label="Pagination" data-i18n-aria="dy-pagination"></nav>
+        </section>
+        <section class="dy-view" data-view="person" hidden><div id="person-body"></div></section>
+
+        <!-- About -->
+        <section class="dy-view" data-view="about" hidden><div id="about-body"></div></section>
+
+        <p class="dy-empty" id="loading" data-i18n="dy-loading">Loading…</p>
+      </div>
+    </main>
+
+    <footer class="dy-footer">
+      <div class="dy-page dy-footer-inner">
+        <p class="dy-footer-source">
+          <span data-i18n="dy-foot-source">Election results: OpenHalalan (ODbL 1.0) · Family ties: published sources, cited per entry</span>
+          <span id="built"></span>
+        </p>
+        <ul class="dy-footer-links">
+          <li>
+            <span class="dy-label" data-i18n="dy-foot-site">This site</span>
+            <span><span data-i18n="dy-foot-run-by">Run by</span> <a href="https://betterbukidnon.org/" target="_blank" rel="noopener">Better Bukidnon ↗</a></span>
+          </li>
+          <li>
+            <span class="dy-label" data-i18n="dy-foot-also">Also from Better Bukidnon</span>
+            <a href="https://budget.betterbukidnon.org/" target="_blank" rel="noopener">budget.betterbukidnon.org ↗</a>
+            <a href="https://infra.betterbukidnon.org/" target="_blank" rel="noopener">infra.betterbukidnon.org ↗</a>
+          </li>
+          <li>
+            <span class="dy-label" data-i18n="dy-foot-correct">Report a correction</span>
+            <a href="https://github.com/Better-Bukidnon/dynasties/issues/new" target="_blank" rel="noopener">GitHub ↗</a>
+            <a href="mailto:volunteer@betterbukidnon.org">volunteer@betterbukidnon.org</a>
+          </li>
+          <li>
+            <span class="dy-label" data-i18n="dy-foot-data">Open data</span>
+            <a href="data/officials.json">officials.json</a>
+            <a href="data/families.json">families.json</a>
+          </li>
+        </ul>
+        <p class="dy-footer-fine" data-i18n="dy-foot-disclaimer">
+          Volunteer civic project, not an official government website. Relationships do not imply wrongdoing.
+        </p>
+      </div>
+    </footer>
+
+    <script defer src="assets/js/dynasties-i18n.js"></script>
+    <script defer src="assets/js/dynasties.js"></script>
+  </body>
+</html>
