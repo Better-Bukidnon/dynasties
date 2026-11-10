@@ -16,6 +16,7 @@
 import { readFile, writeFile, mkdir, stat } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { recordSource } from './sources.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const CSV_URL = 'https://github.com/RobertRLeung/OpenHalalan/releases/download/data-latest/NLE_Winners_2004-2025.csv';
@@ -416,6 +417,21 @@ const body = Object.entries(out)
   .map(([k, v]) => `  ${JSON.stringify(k)}: ${Array.isArray(v) && typeof v[0] === 'object' ? lines(v) : JSON.stringify(v)}`)
   .join(',\n');
 await writeFile(OUT, `{\n${body}\n}\n`);
+
+// Keep the Bukidnon source rows verbatim for fact-checking. The download link
+// always points at the latest release, so the checksum pins the exact file used.
+const cols = Object.keys(raw[0]);
+const src = await recordSource('openhalalan', {
+  title: 'OpenHalalan: The Philippine National and Local Election Dataset (winners file)',
+  publisher: 'Leung, R. et al. (2026), Zenodo, https://doi.org/10.5281/zenodo.17783099',
+  page: 'https://robertrleung.github.io/OpenHalalan/',
+  url: CSV_URL,
+  license: 'ODbL-1.0',
+  usedFor: 'data/officials.json (with the fixes in data/corrections.json)',
+  file: CACHE,
+  extract: { name: 'openhalalan-winners-bukidnon.csv', rows: [cols, ...raw.map((r) => cols.map((c) => r[c]))] },
+});
+console.log(`Source recorded: ${src.extract.rows} Bukidnon rows, retrieved ${src.retrieved}, sha256 ${src.sha256.slice(0, 12)}…`);
 
 const unplaced = out.terms.filter((t) => !t.place && !PROVINCIAL.has(t.position));
 console.log(`data/officials.json: ${out.people.length} people, ${out.terms.length} terms, ${YEARS[0]}–${YEARS.at(-1)}`);
