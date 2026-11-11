@@ -1,0 +1,39 @@
+{
+  "note": "Every raw source the data is built from. \"sha256\" identifies the exact file downloaded on \"retrieved\"; \"extract\" is its Bukidnon rows kept verbatim in this folder (contact columns removed). Written by the build scripts; do not edit by hand.",
+  "sources": {
+    "dilg-bis-masterlist": {
+      "title": "Barangay Officials Directory: Masterlist of Officials, Region X",
+      "publisher": "Department of the Interior and Local Government (DILG), Barangay Information System",
+      "page": "https://www.dilg.gov.ph/barangay-officials-directory/index",
+      "url": "https://bis.dilg.gov.ph/bops/default/master?psgc=10",
+      "usedFor": "data/barangays.json",
+      "dropped": [
+        "BARANGAY TEL NO."
+      ],
+      "retrieved": "2026-11-10",
+      "sha256": "cf47b0ab247e284d5e4f1fadfc2f0ec760b09a80e1c7fa7146cc75be9ecf2c87",
+      "bytes": 2209705,
+      "extract": {
+        "file": "data/sources/dilg-bis-masterlist-bukidnon.csv",
+        "rows": 9060,
+        "sha256": "7b0ec6708d6c53db559ab4a6951aa43192bc0eae7a6dab40c32ed9ee85bebe23"
+      }
+    },
+    "openhalalan": {
+      "title": "OpenHalalan: The Philippine National and Local Election Dataset (winners file)",
+      "publisher": "Leung, R. et al. (2026), Zenodo, https://doi.org/10.5281/zenodo.17783099",
+      "page": "https://robertrleung.github.io/OpenHalalan/",
+      "url": "https://github.com/RobertRLeung/OpenHalalan/releases/download/data-latest/NLE_Winners_2004-2025.csv",
+      "license": "ODbL-1.0",
+      "usedFor": "data/officials.json (with the fixes in data/corrections.json)",
+      "retrieved": "2026-11-10",
+      "sha256": "d82cf9b08bdbe07f6041835385f93f33d2828d32c860b61fef773702b9f2b99f",
+      "bytes": 18246015,
+      "extract": {
+        "file": "data/sources/openhalalan-winners-bukidnon.csv",
+        "rows": 2102,
+        "sha256": "58bc3b7b5b637ce8f8a8d0f014b95ea3fa944e190209813cb8fe23293f1f6374"
+      }
+    }
+  }
+}

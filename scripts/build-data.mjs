@@ -16,6 +16,7 @@
 import { readFile, writeFile, mkdir, stat } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { recordSource } from './sources.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const CSV_URL = 'https://github.com/RobertRLeung/OpenHalalan/releases/download/data-latest/NLE_Winners_2004-2025.csv';
@@ -178,6 +179,31 @@ function seqCompatible(a, b) {
   return true;
 }
 
+// The source's two common slips between elections, where word-by-word comparison fails:
+//   a second given name left out   "RHEA RHENNA HALINA" / "RHEA HALINA"
+//   a middle name mistyped         "BENJAMIN ALUMBRO"   / "BENJAMIN ALOMBRO"
+// The last word is the middle name; the given names must match as a prefix, and the
+// middle names must be equal, an initial of each other, or one or two letters apart.
+function editDistance(a, b) {
+  const d = Array.from({ length: a.length + 1 }, (_, i) => [i]);
+  for (let j = 1; j <= b.length; j++) d[0][j] = j;
+  for (let i = 1; i <= a.length; i++)
+    for (let j = 1; j <= b.length; j++) d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+  return d[a.length][b.length];
+}
+function middleClose(a, b) {
+  if (a === b) return true;
+  if (a[0] !== b[0]) return false;
+  if (a.length <= 2 || b.length <= 2) return true; // "LP." for "LASPIÑAS"
+  return a.length >= 5 && b.length >= 5 && editDistance(a, b) <= 2;
+}
+function looseCompatible(a, b) {
+  if (a.length < 2 || b.length < 2) return false;
+  const [ga, gb] = [a.slice(0, -1), b.slice(0, -1)];
+  const [short, long] = ga.length <= gb.length ? [ga, gb] : [gb, ga];
+  return seqCompatible(short, long) && middleClose(a.at(-1), b.at(-1));
+}
+
 const SMALL = new Set(['DE', 'DEL', 'DELA', 'LA', 'Y']);
 function titleCase(s) {
   return s
@@ -264,15 +290,21 @@ for (const a of corrections.assign ?? []) {
   }
 }
 
-// 2. Merged or blank slates: place each winner by where they held office in other years.
-const homeOf = new Map(); // key → Set of place ids from unambiguous rows
+// samePerson corrections: ballot names that belong to one person (nicknames).
+const merge = new Map(); // key → canonical key
+for (const s of corrections.samePerson) for (const k of s.keys) merge.set(k, s.keys[0]);
+const personKey = (n) => merge.get(keyOf(n)) ?? keyOf(n);
+
+// 2. Merged or blank slates: place each winner by where they held office in other years,
+//    under any of their ballot names.
+const homeOf = new Map(); // person key → Set of place ids from unambiguous rows
 const isAmbiguous = (t) =>
   !PROVINCIAL.has(t.position) &&
   !t.fix &&
   corrections.mergedSlates.some((s) => s.years.includes(t.year) && s.filedUnder === t.srcPlace);
 for (const t of terms) {
   if (PROVINCIAL.has(t.position) || isAmbiguous(t) || !t.place) continue;
-  const k = keyOf(t.name);
+  const k = personKey(t.name);
   if (!homeOf.has(k)) homeOf.set(k, new Set());
   homeOf.get(k).add(t.place);
 }
@@ -280,7 +312,7 @@ for (const t of terms) {
   if (!isAmbiguous(t)) continue;
   const slate = corrections.mergedSlates.find((s) => s.years.includes(t.year) && s.filedUnder === t.srcPlace);
   const allowed = slate.candidates === '*' ? PLACES.map((p) => p[1]) : slate.candidates.map((c) => PLACE_ID[c]);
-  const homes = [...(homeOf.get(keyOf(t.name)) ?? [])].filter((p) => allowed.includes(p));
+  const homes = [...(homeOf.get(personKey(t.name)) ?? [])].filter((p) => allowed.includes(p));
   t.fix = fixId(slate.reason);
   if (homes.length === 1) t.place = homes[0];
   else {
@@ -291,8 +323,6 @@ for (const t of terms) {
 
 // ---------- People ----------
 
-const merge = new Map(); // key → canonical key
-for (const s of corrections.samePerson) for (const k of s.keys) merge.set(k, s.keys[0]);
 const groups = new Map();
 for (const t of terms) {
   const k0 = keyOf(t.name);
@@ -335,7 +365,13 @@ for (const [k, items] of groups) {
     for (const t of sorted) {
       const seq = givenSeq(t.name);
       const same = clusters.filter((c) => c.seq.join(' ') === seq.join(' '));
-      const fits = override ? clusters.slice(0, 1) : same.length ? same.slice(0, 1) : clusters.filter((c) => seqCompatible(c.seq, seq));
+      const strict = clusters.filter((c) => seqCompatible(c.seq, seq));
+      // Looser match for the source's two common slips, only within one place and
+      // never for someone already holding another seat that year.
+      const loose = clusters.filter(
+        (c) => looseCompatible(c.seq, seq) && t.place && c.terms.some((x) => x.place === t.place) && !c.terms.some((x) => x.year === t.year),
+      );
+      const fits = override ? clusters.slice(0, 1) : same.length ? same.slice(0, 1) : strict.length ? strict : loose;
       if (fits.length === 1) fits[0].terms.push(t);
       else clusters.push({ seq, terms: [t] });
     }
@@ -354,6 +390,7 @@ for (const [k, items] of groups) {
         sex: c.terms.find((t) => t.sex)?.sex ?? null,
         ballots,
         ...(override ? { mergeNote: override.reason } : {}),
+        ...(override?.sources ? { mergeSources: override.sources } : {}),
       });
       for (const t of c.terms) t.person = id;
     }
@@ -416,6 +453,21 @@ const body = Object.entries(out)
   .map(([k, v]) => `  ${JSON.stringify(k)}: ${Array.isArray(v) && typeof v[0] === 'object' ? lines(v) : JSON.stringify(v)}`)
   .join(',\n');
 await writeFile(OUT, `{\n${body}\n}\n`);
+
+// Keep the Bukidnon source rows verbatim for fact-checking. The download link
+// always points at the latest release, so the checksum pins the exact file used.
+const cols = Object.keys(raw[0]);
+const src = await recordSource('openhalalan', {
+  title: 'OpenHalalan: The Philippine National and Local Election Dataset (winners file)',
+  publisher: 'Leung, R. et al. (2026), Zenodo, https://doi.org/10.5281/zenodo.17783099',
+  page: 'https://robertrleung.github.io/OpenHalalan/',
+  url: CSV_URL,
+  license: 'ODbL-1.0',
+  usedFor: 'data/officials.json (with the fixes in data/corrections.json)',
+  file: CACHE,
+  extract: { name: 'openhalalan-winners-bukidnon.csv', rows: [cols, ...raw.map((r) => cols.map((c) => r[c]))] },
+});
+console.log(`Source recorded: ${src.extract.rows} Bukidnon rows, retrieved ${src.retrieved}, sha256 ${src.sha256.slice(0, 12)}…`);
 
 const unplaced = out.terms.filter((t) => !t.place && !PROVINCIAL.has(t.position));
 console.log(`data/officials.json: ${out.people.length} people, ${out.terms.length} terms, ${YEARS[0]}–${YEARS.at(-1)}`);

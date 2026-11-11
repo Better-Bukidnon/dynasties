@@ -72,7 +72,7 @@ Keep each pull request to one change, and fill in the checklist in the template.
 Forks are welcome under the licenses below.
 
 1. In `scripts/build-data.mjs`, change the province filter (`'BUKIDNON'`) and the `PLACES` list, then run `npm run data:refresh`. The years come from the source data.
-   In `scripts/build-barangays.mjs`, change `REGION`, `PROVINCE` (DILG's codes, from the dropdowns on the DILG page) and `PLACE_OF`, then run `npm run data:brgy:refresh`.
+   In `scripts/build-barangays.mjs`, change `REGION` (the region number in the DILG masterlist link), `PROVINCE` and `PLACE_OF`, then run `npm run data:brgy:refresh`.
 2. Replace `data/families.json` with your own sourced families, and `data/corrections.json` with your own corrections. Don't carry ours over.
 3. Change the names, links and domain in `index.html`, `wrangler.jsonc` and the i18n strings.
 4. Keep the OpenHalalan citation and ODbL notice, and publish your derived data under the ODbL.

@@ -130,6 +130,31 @@
   "samePerson": [
     {
       "keys": [
+        "PABILLARAN|WARREN",
+        "PABILLARAN|JAY"
+      ],
+      "name": "Jay Warren R. Pabillaran",
+      "id": "pabillaran-warren",
+      "reason": "Same person: MindaNews names \"lawyer Jay Warren Pabillaran\" as the top Malaybalay councilor in 2010 and 2013, and as the mayor who won as vice mayor in 2019. Same middle name, Ramos; the source lists him as \"Warren\" from 2016.",
+      "sources": [
+        {
+          "publisher": "MindaNews",
+          "date": "2013-05-15",
+          "title": "Lumad families dominate Malaybalay's city council",
+          "url": "https://mindanews.com/top-stories/2013/05/lumad-families-dominate-malaybalays-city-council/",
+          "quote": "The number one councilor, lawyer Jay Warren Pabillaran, who garnered 36,559 votes... Pabillaran also topped the winners for city councilor in the 2010 elections."
+        },
+        {
+          "publisher": "MindaNews",
+          "date": "2022-05-10",
+          "title": "Malaybalay City mayor paces lone rival",
+          "url": "https://mindanews.com/top-stories/2022/05/malaybalay-city-mayor-paces-lone-rival/",
+          "quote": "Pabillaran won as vice mayor in 2019."
+        }
+      ]
+    },
+    {
+      "keys": [
         "DELA ROSA|OSMUNDO",
         "DELA ROSA|MUNDING"
       ],

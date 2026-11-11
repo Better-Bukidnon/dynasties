@@ -1,96 +1,130 @@
 #!/usr/bin/env node
-// Builds data/barangays.json: a snapshot of the current elected barangay officials
-// in Bukidnon (punong barangay, kagawad, SK chairperson), as listed by the DILG.
+// Builds data/barangays.json: the current elected barangay and SK officials of
+// every barangay in Bukidnon (punong barangay, kagawads, SK chairperson, SK
+// members), with each one's term in the present position.
 //
-//   DILG barangay lookup ──▶ keep elected posts, drop contact details ──▶ data/barangays.json
+//   DILG masterlist (xlsx) ──▶ Bukidnon rows, elected posts, no phone numbers ──▶ data/barangays.json
 //
-// Source: Department of the Interior and Local Government, Local Officials
-// directory, https://www.dilg.gov.ph/local-officials/index (data from the DILG
-// Barangay Officials Profiling System). Works of the Philippine government are
-// not subject to copyright (RA 8293, sec. 176).
+// Source: DILG Barangay Officials Directory, "Masterlist of Officials" for
+// Region X, https://www.dilg.gov.ph/barangay-officials-directory/index (data
+// from the DILG Barangay Information System). Works of the Philippine
+// government are not subject to copyright (RA 8293, sec. 176).
 //
-// This is a snapshot of who DILG lists today. It has no terms or dates, so it
+// This is a snapshot of who DILG lists today. It has no start or end dates, so it
 // stays separate from the election history in officials.json. It is never a
-// source for a family tie. Emails and phone numbers are discarded on purpose.
+// source for a family tie. Phone numbers, middle names (beyond an initial) and
+// appointed posts (secretaries, treasurers) are discarded on purpose.
 //
-// The lookup is the same request the DILG page sends. Responses are cached in
-// .cache/dilg/ and fetched four at a time, so a re-run doesn't hit DILG again.
+//   npm run data:brgy            build from the cached download (fetch if missing)
+//   npm run data:brgy:refresh    download the masterlist again
 //
-//   npm run data:brgy            build from cache, fetching what's missing
-//   npm run data:brgy:refresh    re-fetch everything (after a barangay election)
-//
-// www.dilg.gov.ph sends an incomplete certificate chain, so the npm scripts run
-// Node with --use-system-ca (Node 22.15+), which verifies it against the
-// operating system's certificate store. TLS checks are never turned off.
+// No dependencies: the xlsx is a zip, read with node:zlib.
 
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { inflateRawSync } from 'node:zlib';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { recordSource } from './sources.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const CACHE = resolve(root, '.cache/dilg');
+const REGION = '10';
+const PROVINCE = 'BUKIDNON';
+const MASTERLIST = `https://bis.dilg.gov.ph/bops/default/master?psgc=${REGION}`;
+const SOURCE_PAGE = 'https://www.dilg.gov.ph/barangay-officials-directory/index';
+const CACHE = resolve(root, `.cache/dilg/official-list-${REGION}.xlsx`);
 const OUT = resolve(root, 'data/barangays.json');
 const REFRESH = process.argv.includes('--refresh');
-
-const SOURCE_PAGE = 'https://www.dilg.gov.ph/local-officials/index';
-const GEO = 'https://www.dilg.gov.ph/barangay-officials-directory';
-const OFFICIALS = 'https://bis.dilg.gov.ph/bops/default/master-filter';
-const REGION = '10';
-const PROVINCE = '013'; // Bukidnon
 
 // DILG city/municipality name → place id in officials.json.
 const PLACE_OF = {
   BAUNGON: 'baungon', CABANGLASAN: 'cabanglasan', 'CITY OF VALENCIA': 'valencia', DAMULOG: 'damulog',
   DANGCAGAN: 'dangcagan', 'DON CARLOS': 'don-carlos', 'IMPASUG-ONG': 'impasug-ong', KADINGILAN: 'kadingilan',
   KALILANGAN: 'kalilangan', KIBAWE: 'kibawe', KITAOTAO: 'kitaotao', LANTAPAN: 'lantapan', LIBONA: 'libona',
-  'CITY OF MALAYBALAY (CAPITAL)': 'malaybalay', 'CITY OF MALAYBALAY': 'malaybalay', MALITBOG: 'malitbog',
+  'CITY OF MALAYBALAY': 'malaybalay', 'CITY OF MALAYBALAY (CAPITAL)': 'malaybalay', MALITBOG: 'malitbog',
   'MANOLO FORTICH': 'manolo-fortich', MARAMAG: 'maramag', PANGANTUCAN: 'pangantucan', QUEZON: 'quezon',
   'SAN FERNANDO': 'san-fernando', SUMILAO: 'sumilao', TALAKAG: 'talakag',
 };
 
-// Elected posts only. Secretaries and treasurers are appointed, so they're left out.
+// Elected posts only.
 const ROLE_OF = {
   'PUNONG BARANGAY': 'captain',
   'SANGGUNIANG BARANGAY MEMBER': 'kagawad',
   'SK CHAIRPERSON': 'sk-chair',
+  'SK MEMBER': 'sk-member',
 };
-const ROLE_ORDER = ['captain', 'kagawad', 'sk-chair'];
+const ROLE_ORDER = ['captain', 'kagawad', 'sk-chair', 'sk-member'];
 
-// ---------- fetching ----------
+// ---------- download ----------
 
-async function cached(name, url) {
-  const file = resolve(CACHE, name);
+async function masterlist() {
   if (!REFRESH) {
-    try { return JSON.parse(await readFile(file, 'utf8')); } catch {}
+    try { return await readFile(CACHE); } catch {}
   }
-  let lastErr;
-  for (let attempt = 1; attempt <= 3; attempt++) {
-    try {
-      const res = await fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest', Accept: 'application/json' } });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
-      await writeFile(file, JSON.stringify(data));
-      return data;
-    } catch (e) {
-      lastErr = e;
-      await new Promise((r) => setTimeout(r, 1000 * attempt));
-    }
-  }
-  const code = lastErr?.cause?.code ?? '';
-  const hint = /VERIFY|CERT/.test(code) ? ' (run through `npm run data:brgy`, which adds --use-system-ca)' : '';
-  throw new Error(`Couldn't fetch ${url}: ${lastErr?.message} ${code}${hint}`);
+  console.log(`Downloading ${MASTERLIST}`);
+  const res = await fetch(MASTERLIST);
+  if (!res.ok) throw new Error(`Download failed: HTTP ${res.status}`);
+  const buf = Buffer.from(await res.arrayBuffer());
+  if (buf.readUInt32LE(0) !== 0x04034b50) throw new Error('The download is not an xlsx file. Has the DILG link changed?');
+  await mkdir(dirname(CACHE), { recursive: true });
+  await writeFile(CACHE, buf);
+  return buf;
 }
 
-async function pool(items, n, fn) {
-  const out = new Array(items.length);
-  let next = 0;
-  await Promise.all(Array.from({ length: n }, async () => {
-    while (next < items.length) {
-      const i = next++;
-      out[i] = await fn(items[i], i);
+// ---------- minimal xlsx reader ----------
+
+function unzip(buf, name) {
+  let eocd = buf.length - 22;
+  while (eocd >= 0 && buf.readUInt32LE(eocd) !== 0x06054b50) eocd--;
+  if (eocd < 0) throw new Error('Not a zip file');
+  let p = buf.readUInt32LE(eocd + 16);
+  const count = buf.readUInt16LE(eocd + 10);
+  for (let i = 0; i < count; i++) {
+    const method = buf.readUInt16LE(p + 10);
+    const size = buf.readUInt32LE(p + 20);
+    const nameLen = buf.readUInt16LE(p + 28);
+    const extraLen = buf.readUInt16LE(p + 30);
+    const commentLen = buf.readUInt16LE(p + 32);
+    const local = buf.readUInt32LE(p + 42);
+    const entry = buf.toString('utf8', p + 46, p + 46 + nameLen);
+    if (entry === name) {
+      const start = local + 30 + buf.readUInt16LE(local + 26) + buf.readUInt16LE(local + 28);
+      const data = buf.subarray(start, start + size);
+      return (method === 8 ? inflateRawSync(data) : data).toString('utf8');
     }
-  }));
-  return out;
+    p += 46 + nameLen + extraLen + commentLen;
+  }
+  return null;
+}
+
+const unxml = (s) =>
+  s.replace(/&(lt|gt|amp|quot|apos|#\d+|#x[0-9a-f]+);/gi, (m, e) =>
+    ({ lt: '<', gt: '>', amp: '&', quot: '"', apos: "'" })[e.toLowerCase()] ??
+    String.fromCodePoint(e[1] === 'x' || e[1] === 'X' ? parseInt(e.slice(2), 16) : parseInt(e.slice(1), 10)));
+
+function sheetRows(buf) {
+  const shared = [];
+  const sst = unzip(buf, 'xl/sharedStrings.xml') ?? '';
+  for (const m of sst.matchAll(/<si>([\s\S]*?)<\/si>/g)) shared.push(unxml([...m[1].matchAll(/<t[^>]*>([\s\S]*?)<\/t>/g)].map((x) => x[1]).join('')));
+  const xml = unzip(buf, 'xl/worksheets/sheet1.xml');
+  if (!xml) throw new Error('No first sheet in the masterlist');
+  const col = (ref) => [...ref.replace(/\d+/g, '')].reduce((n, c) => n * 26 + c.charCodeAt(0) - 64, 0) - 1;
+  const rows = [];
+  for (const r of xml.matchAll(/<row[^>]*>([\s\S]*?)<\/row>/g)) {
+    const row = [];
+    for (const c of r[1].matchAll(/<c r="([A-Z]+\d+)"([^>]*?)(?:\/>|>([\s\S]*?)<\/c>)/g)) {
+      const [, ref, attrs, inner = ''] = c;
+      const type = /t="(\w+)"/.exec(attrs)?.[1];
+      let v = '';
+      if (type === 'inlineStr') v = unxml([...inner.matchAll(/<t[^>]*>([\s\S]*?)<\/t>/g)].map((x) => x[1]).join(''));
+      else {
+        const raw = /<v>([\s\S]*?)<\/v>/.exec(inner)?.[1] ?? '';
+        v = type === 's' ? shared[Number(raw)] ?? '' : unxml(raw);
+      }
+      row[col(ref)] = v;
+    }
+    rows.push(row);
+  }
+  return rows;
 }
 
 // ---------- cleaning ----------
@@ -99,7 +133,7 @@ async function pool(items, n, fn) {
 const fixText = (s) => String(s ?? '')
   .replace(/\bMA\/\s*/gi, 'Ma. ')
   .replace(/(\p{L})0(?=\p{L}|\b)/gu, '$1o')
-  .replace(/\s+/g, ' ').trim();
+  .replace(/\s+/g, ' ').trim().normalize('NFC');
 
 const SMALL = new Set(['de', 'del', 'dela', 'la', 'los', 'y', 'van', 'von']);
 function titleCase(s) {
@@ -107,67 +141,71 @@ function titleCase(s) {
     i > 0 && SMALL.has(w) ? w : w.replace(/(^|[-'.])(\p{L})/gu, (m, p, c) => p + c.toUpperCase()),
   ).join(' ');
 }
-const SUFFIX = /^(jr|sr|ii|iii|iv|v)\.?$/i;
+// The suffix column also holds nicknames ("DODOY"); keep real suffixes only.
 function suffix(s) {
-  const t = fixText(s);
-  if (!t || /^n\/?a$/i.test(t)) return '';
-  if (!SUFFIX.test(t)) return '';
-  const w = t.replace('.', '').toLowerCase();
-  return w === 'jr' || w === 'sr' ? `${w[0].toUpperCase()}${w[1]}.` : w.toUpperCase();
+  const w = fixText(s).replace(/[.,\s]+$/, '').replace('.', '').toLowerCase();
+  if (w === 'jr' || w === 'sr') return `${w[0].toUpperCase()}${w[1]}.`;
+  return /^(ii|iii|iv|v)$/.test(w) ? w.toUpperCase() : '';
 }
-function personName(r) {
-  const first = titleCase(r.FIRSTNAME);
-  const mid = fixText(r.MIDDLENAME);
-  const last = titleCase(r.LASTNAME);
-  const sx = suffix(r.SUFFIX);
-  // Middle initial only, as DILG's own page shows it.
-  const mi = mid && !/^(n\/?a|-|\.)$/i.test(mid) ? `${mid[0].toUpperCase()}. ` : '';
-  return { name: `${first} ${mi}${last}${sx ? ' ' + sx : ''}`.replace(/\s+/g, ' ').trim(), last };
+function personName(first, middle, last, sfx) {
+  // Some suffixes were typed into the first-name column: "LINO, II", "RICO, JR".
+  const m = /^(.*?),\s*(jr|sr|ii|iii|iv)\.?$/i.exec(fixText(first));
+  if (m) [first, sfx] = [m[1], sfx || m[2]];
+  first = String(first).replace(/;/g, '');
+  last = String(last).replace(/;/g, '');
+  const mid = fixText(middle);
+  // Middle initial only, as DILG's own directory shows it.
+  const mi = mid && !/^(n\/?a|none|-|\.)$/i.test(mid) ? `${mid[0].toUpperCase()}. ` : '';
+  const sx = suffix(sfx);
+  return `${titleCase(first)} ${mi}${titleCase(last)}${sx ? ' ' + sx : ''}`.replace(/\s+/g, ' ').trim();
 }
+const termOf = (s) => ({ '1ST': 1, '2ND': 2, '3RD': 3 })[fixText(s).toUpperCase()] ?? null;
+const slug = (s) => fixText(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
 // ---------- build ----------
 
-await mkdir(CACHE, { recursive: true });
+const rows = sheetRows(await masterlist());
+const head = rows[0].map((h) => fixText(h).toUpperCase());
+const at = (name) => {
+  const i = head.indexOf(name);
+  if (i < 0) throw new Error(`Masterlist column "${name}" is missing. Has the DILG format changed? Columns: ${head.join(', ')}`);
+  return i;
+};
+const C = {
+  term: at('TERM'), province: at('PROVINCE'), town: at('CITY/MUNICIPALITY'), brgy: at('BARANGAY'), position: at('POSITION'),
+  inPost: at('TERM IN PRESENT POSITION'), last: at('LASTNAME'), first: at('FIRSTNAME'), middle: at('MIDDLENAME'), suffix: at('SUFFIX'),
+};
 
-const towns = (await cached(`citymun-${PROVINCE}.json`, `${GEO}/get-citymun?regionId=${REGION}&provinceId=${PROVINCE}`))
-  .filter((c) => c.id);
-const unknown = towns.filter((t) => !PLACE_OF[t.text.toUpperCase()]);
-if (unknown.length) throw new Error(`Unmapped DILG towns: ${unknown.map((t) => t.text).join(', ')}`);
+const mine = rows.slice(1).filter((r) => fixText(r[C.province]).toUpperCase() === PROVINCE);
+if (!mine.length) throw new Error(`No ${PROVINCE} rows in the masterlist`);
+const unknown = [...new Set(mine.map((r) => fixText(r[C.town]).toUpperCase()))].filter((t) => !PLACE_OF[t]);
+if (unknown.length) throw new Error(`Unmapped DILG towns: ${unknown.join(', ')}`);
 
-const jobs = [];
-for (const t of towns) {
-  const brgys = (await cached(`brgy-${PROVINCE}-${t.id}.json`,
-    `${GEO}/get-barangay?regionId=${REGION}&provinceId=${PROVINCE}&citymunId=${t.id}`)).filter((b) => b.id);
-  for (const b of brgys) jobs.push({ town: t, brgy: b });
-}
-console.log(`${towns.length} cities and municipalities, ${jobs.length} barangays`);
-
-let done = 0;
-const results = await pool(jobs, 4, async ({ town, brgy }) => {
-  const rows = await cached(`off-${PROVINCE}-${town.id}-${brgy.id}.json`,
-    `${OFFICIALS}?region=${REGION}&province=${PROVINCE}&citymun=${town.id}&brgy=${brgy.id}`);
-  if (++done % 50 === 0) console.log(`  ${done}/${jobs.length}`);
-  return { town, brgy, rows: Array.isArray(rows) ? rows : [] };
-});
-
-const places = {};
+const brgys = new Map(); // place|barangay → { id, name, officials }
 const skipped = {};
-let people = 0;
-const empty = [];
-for (const { town, brgy, rows } of results) {
-  const place = PLACE_OF[town.text.toUpperCase()];
-  const officials = [];
-  for (const r of rows) {
-    const role = ROLE_OF[fixText(r.POSITION).toUpperCase()];
-    if (!role) { skipped[fixText(r.POSITION)] = (skipped[fixText(r.POSITION)] ?? 0) + 1; continue; }
-    if (!fixText(r.LASTNAME)) continue;
-    officials.push({ role, ...personName(r) });
-  }
-  officials.sort((a, b) => ROLE_ORDER.indexOf(a.role) - ROLE_ORDER.indexOf(b.role)
-    || (a.role === 'kagawad' ? a.last.localeCompare(b.last) : 0));
-  if (!officials.length) empty.push(`${brgy.text}, ${town.text}`);
-  people += officials.length;
-  (places[place] ??= []).push({ id: `${town.id}-${brgy.id}`, name: fixText(brgy.text), officials: officials.map(({ role, name }) => ({ role, name })) });
+for (const r of mine) {
+  const place = PLACE_OF[fixText(r[C.town]).toUpperCase()];
+  const name = fixText(r[C.brgy]);
+  const key = `${place}|${name.toLowerCase()}`;
+  if (!brgys.has(key)) brgys.set(key, { place, b: { id: `${place}--${slug(name)}`, name, officials: [] } });
+  const pos = fixText(r[C.position]);
+  const role = ROLE_OF[pos.toUpperCase()];
+  if (!role) { skipped[pos] = (skipped[pos] ?? 0) + 1; continue; }
+  if (!fixText(r[C.last])) continue;
+  const o = { role, name: personName(r[C.first], r[C.middle], r[C.last], r[C.suffix]), last: titleCase(r[C.last]) };
+  const term = termOf(r[C.inPost]);
+  if (term) o.term = term;
+  brgys.get(key).b.officials.push(o);
+}
+
+const ids = new Set();
+const places = {};
+for (const { place, b } of brgys.values()) {
+  if (ids.has(b.id)) throw new Error(`Two barangays share the id ${b.id}`);
+  ids.add(b.id);
+  b.officials.sort((x, y) => ROLE_ORDER.indexOf(x.role) - ROLE_ORDER.indexOf(y.role) || (x.role === 'captain' || x.role === 'sk-chair' ? 0 : x.last.localeCompare(y.last)));
+  b.officials = b.officials.map(({ last, ...o }) => o);
+  (places[place] ??= []).push(b);
 }
 for (const list of Object.values(places)) list.sort((a, b) => a.name.localeCompare(b.name));
 
@@ -175,17 +213,33 @@ const out = {
   pulledAt: new Date().toISOString().slice(0, 10),
   source: {
     publisher: 'Department of the Interior and Local Government (DILG)',
-    name: 'Local Officials directory (Barangay Officials Profiling System)',
+    name: 'Barangay Officials Directory, Masterlist of Officials (Barangay Information System)',
     url: SOURCE_PAGE,
+    file: MASTERLIST,
+    termLabel: fixText(mine[0][C.term]),
   },
-  note: 'Current officials as DILG lists them on the pull date. No terms or dates. Not a source for family ties. Contact details are not kept.',
+  note: 'Current elected officials as DILG lists them on the pull date. "term" is the term in the present position. Not a source for family ties. Phone numbers are not kept.',
   roles: ROLE_ORDER,
   places,
 };
 await writeFile(OUT, JSON.stringify(out, null, 1) + '\n');
 
-const count = (role) => Object.values(places).flat().reduce((n, b) => n + b.officials.filter((o) => o.role === role).length, 0);
-console.log(`data/barangays.json: ${jobs.length} barangays, ${people} officials ` +
-  `(${count('captain')} captains, ${count('kagawad')} kagawads, ${count('sk-chair')} SK chairpersons)`);
-if (Object.keys(skipped).length) console.log('Left out (not elected):', skipped);
-if (empty.length) console.log(`No elected officials listed for ${empty.length} barangays:`, empty.slice(0, 20).join('; '));
+const all = Object.values(places).flat();
+const count = (role) => all.reduce((n, b) => n + b.officials.filter((o) => o.role === role).length, 0);
+console.log(`data/barangays.json: ${all.length} barangays, ` +
+  ROLE_ORDER.map((r) => `${count(r)} ${r}`).join(', '));
+console.log('Left out (appointed):', skipped);
+
+// Keep the Bukidnon rows verbatim for fact-checking, minus the phone column.
+const keep = head.map((h, i) => i).filter((i) => !/TEL|PHONE|CONTACT|MOBILE|EMAIL/.test(head[i]));
+const src = await recordSource('dilg-bis-masterlist', {
+  title: 'Barangay Officials Directory: Masterlist of Officials, Region X',
+  publisher: 'Department of the Interior and Local Government (DILG), Barangay Information System',
+  page: SOURCE_PAGE,
+  url: MASTERLIST,
+  usedFor: 'data/barangays.json',
+  dropped: head.filter((h, i) => !keep.includes(i)),
+  file: CACHE,
+  extract: { name: 'dilg-bis-masterlist-bukidnon.csv', rows: [keep.map((i) => rows[0][i]), ...mine.map((r) => keep.map((i) => r[i] ?? ''))] },
+});
+console.log(`Source recorded: ${src.extract.rows} rows, retrieved ${src.retrieved}, sha256 ${src.sha256.slice(0, 12)}…`);

@@ -13,6 +13,7 @@ const F = JSON.parse(await readFile(resolve(root, 'data/families.json'), 'utf8')
 const people = new Set(O.people.map((p) => p.id));
 const ROLES = new Set(['father', 'mother', 'son', 'daughter', 'child', 'parent', 'husband', 'wife', 'spouse', 'brother', 'sister', 'sibling', 'grandfather', 'grandmother', 'grandson', 'granddaughter', 'uncle', 'aunt', 'nephew', 'niece', 'cousin', 'father-in-law', 'mother-in-law', 'son-in-law', 'daughter-in-law', 'brother-in-law', 'sister-in-law', 'relative']);
 const problems = [];
+const unarchived = new Set(); // source URLs with no web.archive.org copy yet: a warning, not a failure
 const ids = new Set();
 for (const f of F.families) {
   if (ids.has(f.id)) problems.push(`${f.id}: duplicate family id`);
@@ -30,11 +31,18 @@ for (const f of F.families) {
     if (!keys.has(t.a) || !keys.has(t.b)) problems.push(`${where}: tie member not in family`);
     if (!ROLES.has(t.aIs) || !ROLES.has(t.bIs)) problems.push(`${where}: unknown role ${t.aIs}/${t.bIs}`);
     if (!t.sources?.length || t.sources.some((s) => !/^https:\/\//.test(s.url ?? ''))) problems.push(`${where}: every tie needs a source with an https URL`);
+    for (const s of t.sources ?? []) {
+      if (s.archived && !/^https:\/\/web\.archive\.org\/web\/\d+/.test(s.archived)) problems.push(`${where}: archived must be a https://web.archive.org/web/… link`);
+      if (!s.archived && s.url) unarchived.add(s.url);
+    }
   }
   for (const k of keys) if (!f.ties.some((t) => t.a === k || t.b === k)) problems.push(`${f.id}: member ${k} has no tie`);
 }
 if (problems.length) {
   console.error(problems.join('\n'));
   process.exit(1);
+}
+if (unarchived.size) {
+  console.warn(`No archived copy yet. Save each at https://web.archive.org/save, then add its link as "archived":\n  ${[...unarchived].join('\n  ')}`);
 }
 console.log(`families.json OK: ${F.families.length} families, ${F.families.reduce((n, f) => n + f.ties.length, 0)} ties`);

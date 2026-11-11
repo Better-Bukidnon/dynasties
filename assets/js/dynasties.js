@@ -66,7 +66,7 @@
     `<nav class="dy-crumbs" aria-label="${esc(t('dy-crumbs-label', 'You are here'))}"><a href="#/">${esc(t('dy-nav-home', 'Home'))}</a>${items
       .map(([href, label]) => ` <span aria-hidden="true">/</span> <a href="${esc(href)}">${esc(label)}</a>`)
       .join('')}</nav>`;
-  const PLACES_CRUMB = () => ['#/places', t('dy-nav-places', 'Cities & towns')];
+  const PLACES_CRUMB = () => ['#/places', t('dy-nav-places', 'Cities & Municipalities')];
   const extLink = (url, text) => `<a href="${esc(url)}" target="_blank" rel="noopener">${esc(text)} <span aria-hidden="true">↗</span></a>`;
 
   // "Mayor of Lantapan (2007–2016)" lines for one person
@@ -270,12 +270,12 @@
       </section>
 
       <section class="dy-block" id="brgy-section" aria-busy="true">
-        <h2 class="dy-section-h">${esc(t('dy-brgy-h', 'Barangay officials today'))}</h2>
+        <h2 class="dy-section-h">${esc(t('dy-brgy-h', 'Barangay Officials Today'))}</h2>
         <p class="dy-count">${esc(t('dy-loading', 'Loading…'))}</p>
       </section>
 
       <section class="dy-block">
-        <h2 class="dy-section-h">${esc(t('dy-ties-here', 'Documented family ties'))}</h2>
+        <h2 class="dy-section-h">${esc(t('dy-ties-here', 'Documented Family Ties'))}</h2>
         ${
           tieItems.length
             ? `<ul class="dy-ties">${tieItems.map((x) => tieItem(x.fam, x.tie)).join('')}</ul><div class="dy-chips" style="margin-top:10px">${fams.map((f) => familyChip(f.id)).join('')}</div>`
@@ -284,7 +284,7 @@
       </section>
 
       <section class="dy-block">
-        <h2 class="dy-section-h">${esc(t('dy-by-election', 'Winners by election'))}</h2>
+        <h2 class="dy-section-h">${esc(t('dy-by-election', 'Winners by Election'))}</h2>
         <div class="dy-table-wrap"><table class="dy-table">
           <thead><tr>
             <th scope="col">${esc(t('dy-col-year', 'Year'))}</th>
@@ -317,8 +317,13 @@
     captain: ['dy-brgy-captain', 'Punong barangay'],
     kagawad: ['dy-brgy-kagawads', 'Kagawads'],
     'sk-chair': ['dy-brgy-sk', 'SK chairperson'],
+    'sk-member': ['dy-brgy-sk-members', 'SK members'],
   };
   const BRGY_FIRST = 12;
+  const MANY = new Set(['kagawad', 'sk-member']);
+  const ordinal = (n) => n + (['th', 'st', 'nd', 'rd'][n % 100 > 10 && n % 100 < 14 ? 0 : n % 10] ?? 'th');
+  // "1st term" in the present position, as DILG records it
+  const termTag = (o) => (o.term ? `<span class="dy-term">${esc(t('dy-term-n', '{o} term', { o: ordinal(o.term), n: o.term }))}</span>` : '');
 
   async function renderBarangays(placeId) {
     let B;
@@ -340,19 +345,19 @@
     const names = (b, role) => b.officials.filter((o) => o.role === role).map((o) => o.name);
     const row = (b, role) => {
       const ns = names(b, role);
-      return `<div class="dy-brgy-row${role === 'kagawad' ? ' dy-brgy-kag' : ''}"><dt>${esc(t(...BRGY_ROLE[role]))}</dt><dd>${ns.length ? ns.map(esc).join(role === 'kagawad' ? ' · ' : ', ') : `<span class="dy-gap">${esc(t('dy-brgy-none', 'Not listed'))}</span>`}</dd></div>`;
+      return `<div class="dy-brgy-row${MANY.has(role) ? ' dy-brgy-kag' : ''}"><dt>${esc(t(...BRGY_ROLE[role]))}</dt><dd>${ns.length ? ns.map(esc).join(MANY.has(role) ? ' · ' : ', ') : `<span class="dy-gap">${esc(t('dy-brgy-none', 'Not listed'))}</span>`}</dd></div>`;
     };
     const card = (b) => `<li class="dy-brgy" data-q="${esc(fold([b.name, ...b.officials.map((o) => o.name)].join(' ')))}">
         <h3 class="dy-brgy-name"><a href="#/barangay/${esc(b.id)}">${esc(b.name)}</a></h3>
-        <dl>${row(b, 'captain')}${row(b, 'sk-chair')}${row(b, 'kagawad')}</dl>
+        <dl>${row(b, 'captain')}${row(b, 'kagawad')}${row(b, 'sk-chair')}${row(b, 'sk-member')}</dl>
       </li>`;
     const sks = list.filter((b) => names(b, 'sk-chair').length).length;
 
     sec.removeAttribute('aria-busy');
     sec.innerHTML = `
-      <h2 class="dy-section-h">${esc(t('dy-brgy-h', 'Barangay officials today'))}</h2>
-      <p class="dy-lede-sm">${esc(t('dy-brgy-lede', '{n} barangays. Punong barangay, SK chairperson and kagawads as the DILG lists them.', { n: list.length }))}</p>
-      <p class="dy-note dy-note-plain">${esc(t('dy-brgy-note', 'A snapshot taken {date}. It shows who holds office now, with no terms or past officials, so it is kept apart from the election history above. It is not used as evidence of family ties.', { date }))} ${extLink(B.source.url, t('dy-brgy-source', 'DILG Local Officials directory'))}</p>
+      <h2 class="dy-section-h">${esc(t('dy-brgy-h', 'Barangay Officials Today'))}</h2>
+      <p class="dy-lede-sm">${esc(t('dy-brgy-lede', '{n} barangays. Punong barangay, kagawads, SK chairperson and SK members as the DILG lists them.', { n: list.length }))}</p>
+      <p class="dy-note dy-note-plain">${esc(t('dy-brgy-term', 'They were elected on 30 October 2023. RA 12232 and RA 12326 extended their term to the November 2028 elections; RA 12326 is being challenged before the Supreme Court.'))} ${esc(t('dy-brgy-note', 'A snapshot taken {date}. It shows who holds office now, with no past officials, so it is kept apart from the election history above. It is not used as evidence of family ties.', { date }))} ${extLink(B.source.url, t('dy-brgy-source', 'DILG Barangay Officials Directory'))}</p>
       ${
         list.length
           ? `<div class="dy-toolbar" style="margin-top:14px">
@@ -553,8 +558,12 @@
     const y = idx.latest;
     const at = (pos, where) => D.terms.filter((tm) => tm.year === y && tm.position === pos && (where === undefined || tm.place === where));
     const date = new Date(I.B.pulledAt + 'T00:00:00').toLocaleDateString(I18N?.lang?.() === 'fil' ? 'fil-PH' : 'en-PH', { year: 'numeric', month: 'long', day: 'numeric' });
-    const names = (role) => b.officials.filter((o) => o.role === role).map((o) => o.name);
+    const of = (role) => b.officials.filter((o) => o.role === role);
     const none = `<span class="dy-gap">${esc(t('dy-brgy-none', 'Not listed'))}</span>`;
+    // Name on the left, term on the right, so the term never reads as part of the name.
+    const named = (o) => `<span class="dy-named"><span class="dy-named-n">${esc(o.name)}</span>${termTag(o)}</span>`;
+    const lead = (role) => of(role).map(named).join('') || none;
+    const list = (role) => of(role).map((o) => `<li>${named(o)}</li>`).join('') || `<li>${none}</li>`;
     const cards = (pos, label, where) => at(pos, where).map((tm) => officialCard(tm.person, label)).join('');
     const nameList = (pos, where) =>
       at(pos, where)
@@ -573,16 +582,18 @@
           <p class="dy-layer-sub">${esc(place.name)}, Bukidnon</p>
           <div class="dy-brgy-cols">
             <div>
-              <dl class="dy-brgy-lead"><dt>${esc(t('dy-brgy-captain', 'Punong barangay'))}</dt><dd>${names('captain').map(esc).join(', ') || none}</dd></dl>
-              <h2 class="dy-brgy-sub">${esc(t('dy-brgy-kagawads-long', 'Sangguniang Barangay members (kagawads)'))}</h2>
-              <ul class="dy-brgy-names">${names('kagawad').map((n) => `<li>${esc(n)}</li>`).join('') || `<li>${none}</li>`}</ul>
+              <dl class="dy-brgy-lead"><dt>${esc(t('dy-brgy-captain', 'Punong barangay'))}</dt><dd>${lead('captain')}</dd></dl>
+              <h2 class="dy-brgy-sub">${esc(t('dy-brgy-kagawads-long', 'Sangguniang Barangay Members (Kagawads)'))}</h2>
+              <ul class="dy-brgy-names">${list('kagawad')}</ul>
             </div>
             <div>
-              <dl class="dy-brgy-lead"><dt>${esc(t('dy-brgy-sk', 'SK chairperson'))}</dt><dd>${names('sk-chair').map(esc).join(', ') || none}</dd></dl>
-              <p class="dy-note dy-note-plain">${esc(t('dy-brgy-sk-note', 'The SK chairperson heads the Sangguniang Kabataan and sits on the barangay council. DILG does not list SK members.'))}</p>
+              <dl class="dy-brgy-lead"><dt>${esc(t('dy-brgy-sk', 'SK chairperson'))}</dt><dd>${lead('sk-chair')}</dd></dl>
+              <h2 class="dy-brgy-sub">${esc(t('dy-brgy-sk-members-long', 'Sangguniang Kabataan Members'))}</h2>
+              <ul class="dy-brgy-names">${list('sk-member')}</ul>
+              <p class="dy-note dy-note-plain">${esc(t('dy-brgy-sk-note', 'The SK chairperson heads the Sangguniang Kabataan and sits on the barangay council.'))}</p>
             </div>
           </div>
-          <p class="dy-layer-src">${esc(t('dy-brgy-src', 'As listed by the DILG on {date}. Current officials only; recent vacancies or changes may not show yet.', { date }))} ${extLink(I.B.source.url, t('dy-brgy-source', 'DILG Local Officials directory'))}</p>
+          <p class="dy-layer-src">${esc(t('dy-brgy-term', 'They were elected on 30 October 2023. RA 12232 and RA 12326 extended their term to the November 2028 elections; RA 12326 is being challenged before the Supreme Court.'))} ${esc(t('dy-brgy-src', 'From the DILG masterlist downloaded {date}. Terms are in the present position. Vacancies filled since then may not show yet.', { date }))} ${extLink(I.B.source.url, t('dy-brgy-source', 'DILG Barangay Officials Directory'))}</p>
         </li>
 
         <li class="dy-layer">
@@ -600,10 +611,10 @@
           <h2 class="dy-h1 dy-layer-h"><a href="#/province">Bukidnon</a></h2>
           <p class="dy-layer-sub">${esc(t('dy-region-x', 'Northern Mindanao (Region X)'))}</p>
           <ul class="dy-offs">${cards('governor', posLabel('governor'))}${cards('vice-governor', posLabel('vice-governor'))}</ul>
-          <h3 class="dy-brgy-sub">${esc(t('dy-layer-reps', 'House representatives'))}</h3>
+          <h3 class="dy-brgy-sub">${esc(t('dy-layer-reps', 'House Representatives'))}</h3>
           <p class="dy-note dy-note-plain">${esc(t('dy-layer-reps-note', '{p} is in the {d} district. The source does not say which district each representative won, so all are listed.', { p: place.name, d: place.district }))}</p>
           <ul class="dy-offs">${cards('representative', posLabel('representative'))}</ul>
-          <h3 class="dy-brgy-sub">${esc(t('dy-layer-board', 'Provincial board members'))}</h3>
+          <h3 class="dy-brgy-sub">${esc(t('dy-layer-board', 'Provincial Board Members'))}</h3>
           <ul class="dy-brgy-names">${nameList('board-member')}</ul>
           <p class="dy-layer-src">${esc(t('dy-layer-elected', 'Elected in May {y}. Source: OpenHalalan.', { y }))} <a href="#/province">${esc(t('dy-layer-province-all', 'Every provincial official since 2001'))}</a></p>
         </li>
@@ -629,14 +640,21 @@
     </li>`;
   }
 
-  const familyLabel = (fam) => t('dy-family-of', '{name} family', { name: fam.name });
+  const familyLabel = (fam) => t('dy-family-of', '{name} Family', { name: fam.name });
 
   function sourcesHtml(sources) {
     if (!sources?.length) return '';
     const quotes = sources.filter((s) => s.quote);
     return `${quotes.map((s) => `<p class="dy-quote">“${esc(s.quote)}” <span class="dy-count">${esc(s.publisher)}</span></p>`).join('')}<div class="dy-cite"><span class="dy-cite-label">${esc(
       t('dy-sources', 'Sources'),
-    )}</span>${sources.map((s) => extLink(s.url, [s.publisher, s.date].filter(Boolean).join(', ') || s.title)).join('')}</div>`;
+    )}</span>${sources
+      .map(
+        (s) =>
+          `<span class="dy-cite-item">${extLink(s.url, [s.publisher, s.date].filter(Boolean).join(', ') || s.title)}${
+            s.archived ? ` <a class="dy-cite-arch" href="${esc(s.archived)}" target="_blank" rel="noopener">${esc(t('dy-archived', 'archived copy'))}</a>` : ''
+          }</span>`,
+      )
+      .join('')}</div>`;
   }
 
   // ---------- Views: Province ----------
@@ -660,20 +678,20 @@
       <h1 class="dy-h1">${esc(t('dy-nav-province', 'Province'))}</h1>
       <p class="dy-lede">${esc(t('dy-province-desc', 'Governors, vice governors, House representatives and provincial board members elected in Bukidnon since 2001.'))}</p>
       <section class="dy-block" style="margin-top:28px">
-        <h2 class="dy-section-h">${esc(t('dy-gov-vg', 'Governor and vice governor'))}</h2>
+        <h2 class="dy-section-h">${esc(t('dy-gov-vg', 'Governor and Vice Governor'))}</h2>
         <div class="dy-table-wrap"><table class="dy-table">
           <thead><tr><th scope="col">${esc(t('dy-col-year', 'Year'))}</th><th scope="col">${esc(posLabel('governor'))}</th><th scope="col">${esc(posLabel('vice-governor'))}</th></tr></thead>
           <tbody>${rowsFor(['governor', 'vice-governor'])}</tbody></table></div>
       </section>
       <section class="dy-block">
-        <h2 class="dy-section-h">${esc(t('dy-reps', 'House representatives'))}</h2>
+        <h2 class="dy-section-h">${esc(t('dy-reps', 'House Representatives'))}</h2>
         <p class="dy-block-sub">${esc(t('dy-reps-note', 'Bukidnon had three districts until 2013 and four since. The source does not say which district each representative won.'))}</p>
         <div class="dy-table-wrap"><table class="dy-table">
-          <thead><tr><th scope="col">${esc(t('dy-col-year', 'Year'))}</th><th scope="col">${esc(t('dy-reps', 'House representatives'))}</th></tr></thead>
+          <thead><tr><th scope="col">${esc(t('dy-col-year', 'Year'))}</th><th scope="col">${esc(t('dy-reps', 'House Representatives'))}</th></tr></thead>
           <tbody>${rowsFor(['representative'])}</tbody></table></div>
       </section>
       <section class="dy-block">
-        <h2 class="dy-section-h">${esc(t('dy-board', 'Provincial board (Sangguniang Panlalawigan)'))}</h2>
+        <h2 class="dy-section-h">${esc(t('dy-board', 'Provincial Board (Sangguniang Panlalawigan)'))}</h2>
         <div class="dy-table-wrap"><table class="dy-table">
           <thead><tr><th scope="col">${esc(t('dy-col-year', 'Year'))}</th><th scope="col">${esc(t('dy-board-members', 'Elected board members'))}</th></tr></thead>
           <tbody>${rowsFor(['board-member'])}</tbody></table></div>
@@ -915,7 +933,7 @@
 
       <section class="dy-block" id="dg-section">
         <div class="dy-block-head">
-          <h2 class="dy-section-h">${esc(t('dy-diagram', 'How they are related'))}</h2>
+          <h2 class="dy-section-h">${esc(t('dy-diagram', 'How They Are Related'))}</h2>
           <button type="button" class="dy-btn dy-btn-sm" id="dg-fit" hidden></button>
         </div>
         <p class="dy-block-sub">${esc(t('dy-diagram-hint', 'Select a person or a connecting line to see their offices and the sources.'))}</p>
@@ -932,18 +950,18 @@
       </section>
 
       <section class="dy-block">
-        <h2 class="dy-section-h">${esc(t('dy-timeline', 'Offices over time'))}</h2>
+        <h2 class="dy-section-h">${esc(t('dy-timeline', 'Offices Over Time'))}</h2>
         <p class="dy-block-sub">${esc(t('dy-timeline-note', 'Each column is an election; a term runs three years. Hover a cell for the office and place.'))}</p>
         ${timeline(fam, info)}
       </section>
 
       <section class="dy-block">
-        <h2 class="dy-section-h">${esc(t('dy-members', 'Members and offices'))}</h2>
+        <h2 class="dy-section-h">${esc(t('dy-members', 'Members and Offices'))}</h2>
         <div class="dy-members">${memberCards}</div>
       </section>
 
       <section class="dy-block">
-        <h2 class="dy-section-h">${esc(t('dy-ties-sources', 'Ties and sources'))}</h2>
+        <h2 class="dy-section-h">${esc(t('dy-ties-sources', 'Ties and Sources'))}</h2>
         <ul class="dy-ties">${fam.ties.map((tie, i) => tieItem(fam, tie, { i, bare: true })).join('')}</ul>
       </section>
 
@@ -1142,7 +1160,7 @@
     };
     if (sel.type === 't') {
       const tie = fam.ties[sel.i];
-      return `<div class="dy-focus-head"><span class="dy-label">${esc(t('dy-focus-tie', 'Documented tie'))}</span>${close}</div>
+      return `<div class="dy-focus-head"><span class="dy-label">${esc(t('dy-focus-tie', 'Documented Tie'))}</span>${close}</div>
         <p class="dy-tie-who">${tieSentence(fam, tie, (k, n) => `<strong>${esc(n)}</strong>`)}</p>
         ${tie.note ? `<p class="dy-note">${esc(tie.note)}</p>` : ''}
         ${sourcesHtml(tie.sources)}
@@ -1160,7 +1178,7 @@
         ${x.p ? `<a class="dy-focus-profile" href="#/person/${esc(x.p.id)}">${esc(t('dy-open-profile', 'Open full profile'))} <span aria-hidden="true">→</span></a>` : ''}
       </div>
     </div>
-    <p class="dy-label dy-focus-rel-h">${esc(t('dy-focus-relatives', 'Relatives in this family'))}</p>
+    <p class="dy-label dy-focus-rel-h">${esc(t('dy-focus-relatives', 'Relatives in This Family'))}</p>
     <ul class="dy-focus-rel">${rel
       .map(
         (r) => `<li>${personBtn(r.other, r.theirs)}<button type="button" class="dy-linkbtn" data-sel-tie="${r.i}">${esc(t('dy-see-source', 'Source'))} (${
@@ -1287,7 +1305,7 @@
         </g>`;
       })
       .join('');
-    return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="group" aria-label="${esc(t('dy-diagram', 'How they are related'))}">${edges}${nodes}</svg>`;
+    return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="group" aria-label="${esc(t('dy-diagram', 'How They Are Related'))}">${edges}${nodes}</svg>`;
   }
 
   // ---------- Views: Officials ----------
@@ -1382,7 +1400,7 @@
     const peers = D.people.filter((o) => o.id !== id && fold(o.last) === fold(p.last) && !relIds.has(o.id));
 
     $('#person-body').innerHTML = `
-      ${crumbs(['#/officials', t('dy-nav-officials', 'All officials')])}
+      ${crumbs(['#/officials', t('dy-nav-officials', 'All Officials')])}
       <div class="dy-person-head">
         ${face({ name: p.name, last: p.last, photo: idx.photoOf?.[id] }, 'dy-face-xl')}
         <div>
@@ -1393,12 +1411,12 @@
       </div>
 
       <section class="dy-block" style="margin-top:28px">
-        <h2 class="dy-section-h">${esc(t('dy-relatives', 'Documented relatives in elected office'))}</h2>
+        <h2 class="dy-section-h">${esc(t('dy-relatives', 'Documented Relatives in Elected Office'))}</h2>
         ${tieHtml}
       </section>
 
       <section class="dy-block">
-        <h2 class="dy-section-h">${esc(t('dy-offices-held', 'Elected offices in Bukidnon, 2001–2025'))}</h2>
+        <h2 class="dy-section-h">${esc(t('dy-offices-held', 'Elected Offices in Bukidnon, 2001–2025'))}</h2>
         <div class="dy-table-wrap"><table class="dy-table">
           <thead><tr>
             <th scope="col">${esc(t('dy-col-term', 'Term'))}</th>
@@ -1408,14 +1426,14 @@
             <th scope="col" class="dy-hide-sm">${esc(t('dy-col-ballot', 'Name in the source'))}</th>
           </tr></thead>
           <tbody>${termRows}</tbody></table></div>
-        ${p.mergeNote ? `<p class="dy-note dy-note-plain">${esc(t('dy-merge-note', 'Treated as one person:'))} ${esc(p.mergeNote)}</p>` : ''}
+        ${p.mergeNote ? `<div class="dy-note dy-note-plain"><p style="margin:0">${esc(t('dy-merge-note', 'Treated as one person:'))} ${esc(p.mergeNote)}</p>${sourcesHtml(p.mergeSources)}</div>` : ''}
         ${fixes.map((f) => `<p class="dy-note">${esc(t('dy-fix-note', 'Corrected:'))} ${esc(idx.fix[f].reason)}</p>`).join('')}
       </section>
 
       ${
         peers.length
           ? `<section class="dy-block">
-        <h2 class="dy-section-h">${esc(t('dy-same-surname', 'Same surname, relationship not documented'))}</h2>
+        <h2 class="dy-section-h">${esc(t('dy-same-surname', 'Same Surname, Relationship Not Documented'))}</h2>
         <p class="dy-block-sub">${esc(t('dy-same-surname-note', 'Other Bukidnon officials named {last}. A shared surname is not evidence of kinship.', { last: p.last }))}</p>
         <div class="dy-councils">${peers.map((o) => `<span>${personLink(o.id)} <span class="dy-count">${esc(officeLines(o.id)[0] ?? '')}</span></span>`).join('')}</div>
       </section>`
@@ -1429,24 +1447,24 @@
     const unplaced = D.terms.filter((tm) => !tm.place && !['governor', 'vice-governor', 'representative', 'board-member'].includes(tm.position));
     $('#about-body').innerHTML = `
       ${crumbs()}
-      <h1 class="dy-h1">${esc(t('dy-nav-about', 'About the data'))}</h1>
+      <h1 class="dy-h1">${esc(t('dy-nav-about', 'About the Data'))}</h1>
       <div class="dy-prose" style="margin-top:16px">
-        <h2 class="dy-section-h">${esc(t('dy-about-what-h', 'What is here'))}</h2>
+        <h2 class="dy-section-h">${esc(t('dy-about-what-h', 'What Is Here'))}</h2>
         <p>${esc(t('dy-about-what', 'Every winner of a seat elected in Bukidnon from 2001 to 2025: governor, vice governor, House representatives, provincial board members, and the mayors, vice mayors and councilors of the 2 cities and 20 municipalities. On top of that, the family ties between them that a published source states.'))}</p>
 
-        <h2 class="dy-section-h">${esc(t('dy-about-elections-h', 'Election results'))}</h2>
+        <h2 class="dy-section-h">${esc(t('dy-about-elections-h', 'Election Results'))}</h2>
         <p>${esc(t('dy-about-elections', 'Winners come from OpenHalalan, a volunteer-run dataset of Philippine national and local elections, licensed under the Open Database License (ODbL 1.0). Our cleaned copy, officials.json, is published under the same license.'))}</p>
         <p class="dy-sub" style="font-size:12px">${esc(D.source.citation)} ${extLink(D.source.doi, D.source.doi)}</p>
-        <p>${esc(t('dy-about-matching', 'The source has one row per person per election. We match rows to the same person by surname and given names, ignoring accents and initials. Where a ballot nickname differs from the full name, an editor matches them by hand and the person page says so. Two people with the same name can still be merged by mistake; report it if you see one.'))}</p>
+        <p>${esc(t('dy-about-matching', 'The source has one row per person per election. We match rows to the same person by surname and given names, ignoring accents and initials. Within one city or municipality, we also match a name whose second given name is left out ("Jose Joel" and "Jose") or whose middle name differs by a letter or two, unless that person held another seat the same year. Where a ballot nickname differs from the full name, an editor matches them by hand, cites a source where one exists, and the person page says so. Two people with the same name can still be merged by mistake; report it if you see one.'))}</p>
 
-        <h2 class="dy-section-h">${esc(t('dy-about-ties-h', 'Family ties'))}</h2>
+        <h2 class="dy-section-h">${esc(t('dy-about-ties-h', 'Family Ties'))}</h2>
         <p>${esc(t('dy-about-ties', 'A tie is listed only when a news report, official page or other published source states it, and every tie links to that source. We do not infer kinship from shared surnames; where officials share a surname without a documented tie, the person page says so plainly. Being related is not wrongdoing.'))}</p>
         <p>${esc(F.note)}</p>
 
-        <h2 class="dy-section-h">${esc(t('dy-about-brgy-h', 'Barangay officials'))}</h2>
-        <p>${esc(t('dy-about-brgy', 'The punong barangay, kagawads and SK chairperson of each of the 464 barangays come from the DILG Local Officials directory, as a snapshot of who holds office now. It has no terms or past officials, so it is kept apart from the election history. It is never used as evidence of a family tie. Contact details listed by DILG are not copied.'))} ${extLink('https://www.dilg.gov.ph/local-officials/index', t('dy-brgy-source', 'DILG Local Officials directory'))}</p>
+        <h2 class="dy-section-h">${esc(t('dy-about-brgy-h', 'Barangay Officials'))}</h2>
+        <p>${esc(t('dy-about-brgy', 'The punong barangay, kagawads, SK chairperson and SK members of each of the 464 barangays come from the masterlist in the DILG Barangay Officials Directory, as a snapshot of who holds office now. It has no past officials, so it is kept apart from the election history. It is never used as evidence of a family tie. Phone numbers in the masterlist are not copied. A verbatim copy of the Bukidnon rows and the checksum of the file are kept in data/sources/.'))} ${extLink('https://www.dilg.gov.ph/barangay-officials-directory/index', t('dy-brgy-source', 'DILG Barangay Officials Directory'))}</p>
 
-        <h2 class="dy-section-h">${esc(t('dy-about-fixes-h', 'Corrections to the source'))}</h2>
+        <h2 class="dy-section-h">${esc(t('dy-about-fixes-h', 'Corrections to the Source'))}</h2>
         <p>${esc(t('dy-about-fixes', 'We found errors in the source rows for Bukidnon and reported them to OpenHalalan.'))} ${extLink('https://github.com/RobertRLeung/OpenHalalan/issues/5', 'OpenHalalan #5')}</p>
         <ul>${D.fixes.map((f) => `<li>${esc(f.reason)}</li>`).join('')}</ul>
         <p>${esc(t('dy-about-gaps', 'Races with no winners in the source:'))} ${esc(
@@ -1454,7 +1472,7 @@
         )}.</p>
         <p>${esc(t('dy-about-unplaced', '{n} councilor and vice mayor terms are filed under the wrong place and could not be placed with certainty; they are shown on both possible places.', { n: unplaced.length }))}</p>
 
-        <h2 class="dy-section-h">${esc(t('dy-about-correct-h', 'Report a correction'))}</h2>
+        <h2 class="dy-section-h">${esc(t('dy-about-correct-h', 'Report a Correction'))}</h2>
         <p>${esc(t('dy-about-correct', 'If something is wrong or missing, open an issue on GitHub or email us, and include a link to a published source.'))}
           ${extLink('https://github.com/Better-Bukidnon/dynasties/issues/new', 'GitHub')} · <a href="mailto:volunteer@betterbukidnon.org">volunteer@betterbukidnon.org</a></p>
       </div>`;
