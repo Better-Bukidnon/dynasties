@@ -12,7 +12,7 @@ A static site listing every elected official in Bukidnon since 2001 and the docu
 - `data/families.json` is curated by hand. Run `npm run check` after editing it.
 - Keep the attribution visible: OpenHalalan (ODbL) in the masthead, the footer and About, and the disclaimer at the top of every view.
 - Keep the infra/budget type roles and layout, with BetterGov colors: primary blue `#0066eb` as the accent and cool gray neutrals, all set as variables at the top of `dynasties.css`. Prefix classes with `dy-`. Every visible string needs a `dy-*` key in `assets/js/dynasties-i18n.js` (en, plus fil/ceb drafts until a native speaker reviews them).
-- Branch from `develop`; `main` is production. Push only when asked.
+- Branch from `develop` and open pull requests into `develop`; `main` is production and only takes pull requests from `develop` (the `Main from develop` check enforces it). Both are protected: no direct or force pushes. Push only when asked.
 
 ## Checking your work
 

@@ -41,7 +41,7 @@ git checkout develop
 npm run serve     # http://localhost:8080
 ```
 
-Branch from `develop`, which is where pull requests go. `main` is production.
+Branch from `develop`, which is where pull requests go. `main` is production: only `develop` merges into it, through a pull request, and a check fails any other pull request into `main`. Both branches are protected, so changes need a pull request and a passing `Check`.
 
 ## Adding a family tie
 
