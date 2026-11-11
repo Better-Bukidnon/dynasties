@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-A static site listing every elected official in Bukidnon since 2001 and the documented family ties between them. It's a standalone Better Bukidnon site in the same family as budget.betterbukidnon.org and infra.betterbukidnon.org (`Better-Bukidnon/infra-projects`). Its planned home is **dynasties.betterbukidnon.org**. See README.md for the pipeline.
+A static site listing every elected official in Bukidnon since 2001 and the documented family ties between them. It's a standalone Better Bukidnon site in the same family as budget.betterbukidnon.org and infra.betterbukidnon.org (`Better-Bukidnon/infra-projects`). It lives at **officials.betterbukidnon.org** under the name **Bukidnon Officials**; dynasties.betterbukidnon.org, its first address, redirects there. The repo, file names and `dy-` prefix keep the old name. See README.md for the pipeline.
 
 ## Rules
 
