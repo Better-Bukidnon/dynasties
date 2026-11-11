@@ -5,7 +5,8 @@
    budget.betterbukidnon.org and infra.betterbukidnon.org: white
    paper, ink rules, a colored section band, mono labels, and the
    same type roles ("Figtree speaks. Inter works. Mono labels.").
-   Its own accent, a deep plum, sets it apart.
+   Colors follow BetterGov (bettergov.ph): its primary blue as the
+   accent and its cool gray neutrals.
 
    Every class starts with `dy-`.
    ============================================================= */
@@ -13,23 +14,23 @@
 :root {
   /* Paper and ink (shared with the budget portal) */
   --paper: #ffffff;
-  --paper-2: #f6f6f4;
-  --paper-3: #eeede9;
-  --rule: #d6d6d0;
-  --rule-soft: #e8e7e2;
-  --ink: #15130f;
-  --ink-2: #2e2b26;
-  --ink-3: #5f5b53;
-  --ink-mute: #8d887e;
+  --paper-2: #f9fafb;
+  --paper-3: #f3f4f6;
+  --rule: #d1d5db;
+  --rule-soft: #e5e7eb;
+  --ink: #111827;
+  --ink-2: #1f2937;
+  --ink-3: #4b5563;
+  --ink-mute: #6b7280;
 
   /* Accent: this site's identity */
-  --accent: #8a2c6f;
-  --accent-deep: #5f1e4d;
-  --accent-soft: #f8edf4;
+  --accent: #0066eb; /* BetterGov primary-500 */
+  --accent-deep: #003d8d; /* primary-700 */
+  --accent-soft: #e6f0fd; /* primary-50 */
 
   /* Relationship kinds */
-  --dy-rel-family: #8a2c6f;
-  --dy-rel-surname: #8d887e;
+  --dy-rel-family: #0066eb;
+  --dy-rel-surname: #6b7280;
   --dy-warn: #9a5b00;
   --dy-warn-soft: #fff6e5;
 
