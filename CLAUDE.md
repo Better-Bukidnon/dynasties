@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-A static site listing every elected official in Bukidnon since 2001 and the documented family ties between them. It's a standalone Better Bukidnon site in the same family as budget.betterbukidnon.org and infra.betterbukidnon.org (`Better-Bukidnon/infra-projects`). Its planned home is **dynasties.betterbukidnon.org**. See README.md for the pipeline.
+A static site listing every elected official in Bukidnon since 2001 and the documented family ties between them. It's a standalone Better Bukidnon site in the same family as budget.betterbukidnon.org and infra.betterbukidnon.org (`Better-Bukidnon/infra-projects`). It lives at **officials.betterbukidnon.org** under the name **Bukidnon Officials**; dynasties.betterbukidnon.org, its first address, redirects there. The repo is `Better-Bukidnon/officials` (renamed from `dynasties`); the file names and `dy-` prefix keep the old name. See README.md for the pipeline.
 
 ## Rules
 
@@ -12,7 +12,7 @@ A static site listing every elected official in Bukidnon since 2001 and the docu
 - `data/families.json` is curated by hand. Run `npm run check` after editing it.
 - Keep the attribution visible: OpenHalalan (ODbL) in the masthead, the footer and About, and the disclaimer at the top of every view.
 - Keep the infra/budget type roles and layout, with BetterGov colors: primary blue `#0066eb` as the accent and cool gray neutrals, all set as variables at the top of `dynasties.css`. Prefix classes with `dy-`. Every visible string needs a `dy-*` key in `assets/js/dynasties-i18n.js` (en, plus fil/ceb drafts until a native speaker reviews them).
-- Branch from `develop`; `main` is production. Push only when asked.
+- Branch from `develop` and open pull requests into `develop`; `main` is production and only takes pull requests from `develop` (the `Main from develop` check enforces it). Both are protected: no direct or force pushes. Push only when asked.
 
 ## Checking your work
 
