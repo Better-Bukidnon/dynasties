@@ -8,10 +8,10 @@ You're also welcome to fork it for your own province. See [Forking for another p
 
 | You want to… | Do this |
 | --- | --- |
-| Report a family tie | Open a [family tie issue](https://github.com/Better-Bukidnon/dynasties/issues/new?template=family-tie.yml) with a link to the source. |
-| Fix a name, office, place or year | Open a [correction issue](https://github.com/Better-Bukidnon/dynasties/issues/new?template=correction.yml). |
+| Report a family tie | Open a [family tie issue](https://github.com/Better-Bukidnon/officials/issues/new?template=family-tie.yml) with a link to the source. |
+| Fix a name, office, place or year | Open a [correction issue](https://github.com/Better-Bukidnon/officials/issues/new?template=correction.yml). |
 | Review the Filipino or Cebuano text | Edit `assets/js/dynasties-i18n.js` and open a pull request. Native speakers are especially welcome. |
-| Fix a bug or improve the site | Open a [bug issue](https://github.com/Better-Bukidnon/dynasties/issues/new?template=bug.yml), or send a pull request. |
+| Fix a bug or improve the site | Open a [bug issue](https://github.com/Better-Bukidnon/officials/issues/new?template=bug.yml), or send a pull request. |
 
 No GitHub account? Email volunteer@betterbukidnon.org with the same details.
 

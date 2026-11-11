@@ -1,5 +1,5 @@
 // Strings and a small language switcher (EN / FIL / CEB) for
-// dynasties.betterbukidnon.org. Exposes window.DYI18N:
+// officials.betterbukidnon.org. Exposes window.DYI18N:
 //   t(key, fallback, params)  translated string, `{param}` interpolated
 //   lang()                    'en' | 'fil' | 'ceb'
 //   set(lang)                 switch, re-apply markup, notify listeners
@@ -157,7 +157,7 @@
       "dy-ties-here": "Documented Family Ties",
       "dy-ties-sources": "Ties and Sources",
       "dy-ties-updated": "ties reviewed {when}",
-      "dy-title": "Political Families",
+      "dy-title": "Bukidnon Officials",
       "dy-top-saln": "SALN tracker",
       "dy-unplaced-note": "These winners are filed under the wrong place in the source and could not be placed with certainty. They belong to {places}:",
       "dy-via": "family ties from published sources",
@@ -260,7 +260,7 @@
       "dy-top-saln": "SALN tracker",
       "dy-lang-label": "Wika",
       "dy-kicker": "Lalawigan ng Bukidnon · Mga halal na opisyal 2001–2025",
-      "dy-title": "Mga Pamilyang Pulitikal",
+      "dy-title": "Mga Opisyal ng Bukidnon",
       "dy-data-from": "Datos ng halalan mula sa",
       "dy-via": "ugnayang pampamilya mula sa mga nailathalang source",
       "dy-nav-label": "Mga seksiyon",
@@ -481,7 +481,7 @@
       "dy-top-saln": "SALN tracker",
       "dy-lang-label": "Pinulongan",
       "dy-kicker": "Lalawigan sa Bukidnon · Mga piniling opisyal 2001–2025",
-      "dy-title": "Mga Pamilyang Politikal",
+      "dy-title": "Mga Opisyal sa Bukidnon",
       "dy-data-from": "Datos sa piliay gikan sa",
       "dy-via": "relasyon sa pamilya gikan sa gipatik nga mga tinubdan",
       "dy-nav-label": "Mga seksiyon",

@@ -8,7 +8,7 @@ body:
     attributes:
       label: Page
       description: Link to the page with the problem
-      placeholder: https://dynasties.betterbukidnon.org/#/person/…
+      placeholder: https://officials.betterbukidnon.org/#/person/…
     validations:
       required: true
   - type: textarea

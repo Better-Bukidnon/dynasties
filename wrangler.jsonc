@@ -13,9 +13,9 @@
   },
   // Required by `npx wrangler preview`, which Workers Builds runs for non-production branches
   "previews": {},
-  // Until the custom domain is turned on, the site is served on *.workers.dev.
-  // Planned home, set here rather than in the dashboard (like the other Better Bukidnon sites):
-  // "routes": [{ "pattern": "dynasties.betterbukidnon.org", "custom_domain": true }],
+  // Home: officials.betterbukidnon.org. The first address, dynasties.betterbukidnon.org, should
+  // 301 to it through a Cloudflare redirect rule (set in the dashboard, not here).
+  "routes": [{ "pattern": "officials.betterbukidnon.org", "custom_domain": true }],
   "workers_dev": true,
   "preview_urls": true
 }

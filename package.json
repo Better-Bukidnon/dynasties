@@ -1,8 +1,8 @@
 {
-  "name": "dynasties",
+  "name": "officials",
   "version": "0.1.0",
   "private": true,
-  "description": "dynasties.betterbukidnon.org: every elected official in Bukidnon since 2001 and the documented family ties between them. A Better Bukidnon site.",
+  "description": "Bukidnon Officials (officials.betterbukidnon.org): every elected official in Bukidnon since 2001, today's barangay and SK officials, and the documented family ties between them. A Better Bukidnon site.",
   "type": "module",
   "engines": {
     "node": ">=18"

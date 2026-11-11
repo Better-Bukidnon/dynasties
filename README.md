@@ -1,8 +1,8 @@
-# Bukidnon Political Families
+# Bukidnon Officials
 
-Every elected official in the Province of Bukidnon since 2001, and the documented family ties between them. That includes the governor, vice governor, House members and board members, plus the mayors, vice mayors and councilors of all 22 cities and municipalities. Each tie links to a published source.
+Every elected official in the Province of Bukidnon since 2001, and the documented family ties between them. That includes the governor, vice governor, House members and board members, the mayors, vice mayors and councilors of all 22 cities and municipalities, and the barangay and SK officials now in office in all 464 barangays. Each tie links to a published source.
 
-It's a standalone Better Bukidnon site, like the [budget portal](https://budget.betterbukidnon.org) and the [infrastructure tracker](https://infra.betterbukidnon.org). It's planned for **dynasties.betterbukidnon.org** and is listed on betterbukidnon.org/projects. It was inspired by BetterGov's [dynasties.bettergov.ph](https://dynasties.bettergov.ph), which matches officials by shared surname. This site lists a tie only when a source states it.
+It's a standalone Better Bukidnon site, like the [budget portal](https://budget.betterbukidnon.org) and the [infrastructure tracker](https://infra.betterbukidnon.org). It's live at **[officials.betterbukidnon.org](https://officials.betterbukidnon.org)** (dynasties.betterbukidnon.org redirects there) and is listed on betterbukidnon.org/projects. It was inspired by BetterGov's [dynasties.bettergov.ph](https://dynasties.bettergov.ph), which matches officials by shared surname. This site lists a tie only when a source states it.
 
 ## How it works
 
