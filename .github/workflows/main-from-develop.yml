@@ -1,0 +1,28 @@
+name: Main from develop
+
+# main is production. Changes reach it only through a pull request from develop,
+# so everything is reviewed and tested on develop first. Branch protection on main
+# requires this check.
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions: {}
+
+jobs:
+  source-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Only develop may merge into main
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          REPO: ${{ github.repository }}
+        run: |
+          if [ "$HEAD_REF" = "develop" ] && [ "$HEAD_REPO" = "$REPO" ]; then
+            echo "OK: $HEAD_REPO:$HEAD_REF -> main"
+          else
+            echo "::error::Pull requests into main must come from $REPO:develop, not $HEAD_REPO:$HEAD_REF. Open this pull request against develop instead."
+            exit 1
+          fi
