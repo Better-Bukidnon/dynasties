@@ -1426,7 +1426,7 @@
             <th scope="col" class="dy-hide-sm">${esc(t('dy-col-ballot', 'Name in the source'))}</th>
           </tr></thead>
           <tbody>${termRows}</tbody></table></div>
-        ${p.mergeNote ? `<p class="dy-note dy-note-plain">${esc(t('dy-merge-note', 'Treated as one person:'))} ${esc(p.mergeNote)}</p>` : ''}
+        ${p.mergeNote ? `<div class="dy-note dy-note-plain"><p style="margin:0">${esc(t('dy-merge-note', 'Treated as one person:'))} ${esc(p.mergeNote)}</p>${sourcesHtml(p.mergeSources)}</div>` : ''}
         ${fixes.map((f) => `<p class="dy-note">${esc(t('dy-fix-note', 'Corrected:'))} ${esc(idx.fix[f].reason)}</p>`).join('')}
       </section>
 
@@ -1455,7 +1455,7 @@
         <h2 class="dy-section-h">${esc(t('dy-about-elections-h', 'Election Results'))}</h2>
         <p>${esc(t('dy-about-elections', 'Winners come from OpenHalalan, a volunteer-run dataset of Philippine national and local elections, licensed under the Open Database License (ODbL 1.0). Our cleaned copy, officials.json, is published under the same license.'))}</p>
         <p class="dy-sub" style="font-size:12px">${esc(D.source.citation)} ${extLink(D.source.doi, D.source.doi)}</p>
-        <p>${esc(t('dy-about-matching', 'The source has one row per person per election. We match rows to the same person by surname and given names, ignoring accents and initials. Where a ballot nickname differs from the full name, an editor matches them by hand and the person page says so. Two people with the same name can still be merged by mistake; report it if you see one.'))}</p>
+        <p>${esc(t('dy-about-matching', 'The source has one row per person per election. We match rows to the same person by surname and given names, ignoring accents and initials. Within one city or municipality, we also match a name whose second given name is left out ("Jose Joel" and "Jose") or whose middle name differs by a letter or two, unless that person held another seat the same year. Where a ballot nickname differs from the full name, an editor matches them by hand, cites a source where one exists, and the person page says so. Two people with the same name can still be merged by mistake; report it if you see one.'))}</p>
 
         <h2 class="dy-section-h">${esc(t('dy-about-ties-h', 'Family Ties'))}</h2>
         <p>${esc(t('dy-about-ties', 'A tie is listed only when a news report, official page or other published source states it, and every tie links to that source. We do not infer kinship from shared surnames; where officials share a surname without a documented tie, the person page says so plainly. Being related is not wrongdoing.'))}</p>

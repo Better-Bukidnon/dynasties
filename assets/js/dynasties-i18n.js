@@ -23,7 +23,7 @@
       "dy-about-fixes": "We found errors in the source rows for Bukidnon and reported them to OpenHalalan.",
       "dy-about-fixes-h": "Corrections to the Source",
       "dy-about-gaps": "Races with no winners in the source:",
-      "dy-about-matching": "The source has one row per person per election. We match rows to the same person by surname and given names, ignoring accents and initials. Where a ballot nickname differs from the full name, an editor matches them by hand and the person page says so. Two people with the same name can still be merged by mistake; report it if you see one.",
+      "dy-about-matching": "The source has one row per person per election. We match rows to the same person by surname and given names, ignoring accents and initials. Within one city or municipality, we also match a name whose second given name is left out (\"Jose Joel\" and \"Jose\") or whose middle name differs by a letter or two, unless that person held another seat the same year. Where a ballot nickname differs from the full name, an editor matches them by hand, cites a source where one exists, and the person page says so. Two people with the same name can still be merged by mistake; report it if you see one.",
       "dy-about-ties": "A tie is listed only when a news report, official page or other published source states it, and every tie links to that source. We do not infer kinship from shared surnames; where officials share a surname without a documented tie, the person page says so plainly. Being related is not wrongdoing.",
       "dy-about-ties-h": "Family Ties",
       "dy-about-unplaced": "{n} councilor and vice mayor terms are filed under the wrong place and could not be placed with certainty; they are shown on both possible places.",
