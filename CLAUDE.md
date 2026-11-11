@@ -11,7 +11,7 @@ A static site listing every elected official in Bukidnon since 2001 and the docu
 - Keep every claim checkable. `data/sources/` (written by the build scripts) records each raw source's address, download date and checksum, plus its Bukidnon rows verbatim; never hand-edit it. Every family-tie source should have an `archived` web.archive.org copy; `npm run check` lists the ones missing.
 - `data/families.json` is curated by hand. Run `npm run check` after editing it.
 - Keep the attribution visible: OpenHalalan (ODbL) in the masthead, the footer and About, and the disclaimer at the top of every view.
-- Keep the site's own identity: the infra/budget type roles and layout, with a plum accent. Prefix classes with `dy-`. Every visible string needs a `dy-*` key in `assets/js/dynasties-i18n.js` (en, plus fil/ceb drafts until a native speaker reviews them).
+- Keep the infra/budget type roles and layout, with BetterGov colors: primary blue `#0066eb` as the accent and cool gray neutrals, all set as variables at the top of `dynasties.css`. Prefix classes with `dy-`. Every visible string needs a `dy-*` key in `assets/js/dynasties-i18n.js` (en, plus fil/ceb drafts until a native speaker reviews them).
 - Branch from `develop`; `main` is production. Push only when asked.
 
 ## Checking your work
