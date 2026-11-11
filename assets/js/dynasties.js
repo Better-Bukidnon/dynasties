@@ -1474,7 +1474,7 @@
 
         <h2 class="dy-section-h">${esc(t('dy-about-correct-h', 'Report a Correction'))}</h2>
         <p>${esc(t('dy-about-correct', 'If something is wrong or missing, open an issue on GitHub or email us, and include a link to a published source.'))}
-          ${extLink('https://github.com/Better-Bukidnon/dynasties/issues/new', 'GitHub')} · <a href="mailto:volunteer@betterbukidnon.org">volunteer@betterbukidnon.org</a></p>
+          ${extLink('https://github.com/Better-Bukidnon/officials/issues/new', 'GitHub')} · <a href="mailto:volunteer@betterbukidnon.org">volunteer@betterbukidnon.org</a></p>
       </div>`;
   }
 
